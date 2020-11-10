@@ -1,21 +1,21 @@
 # OpenBackup
 
 #### 介绍
-一个数据备份软件，用tkinter作为GUI界面，说真的，好丑，但界面是后面再考虑的事情了，现在主要是先把功能实现
-
+一个数据备份软件，用tkinter作为GUI界面，说真的，好丑，但界面是后面再考虑的事情了，现在主要是先把功能实现。
+#####目前只是想按照自己的想法实现一款备份软件的基本功能，属于闲暇无聊之作，再加之本人水平受限，很多地方故意忽略。
 #### 软件架构
-软件架构说明
+目前仅考虑本地存储文件历史记录，用SQLie数据库
 
 
 #### 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  将Script文件夹加入系统变量
+2.  运行install.py(安装第三方包)
+3.  运行Main.py
 
 #### 使用说明
 
-1.  xxxx
+1.  config文件夹里存放的是SQLite数据库的部分设置
 2.  xxxx
 3.  xxxx
 
@@ -27,12 +27,12 @@
 4.  新建 Pull Request
 
 
-#### 特技
+#### 特性
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+1.
+2.  
+3.  
+4.  
+5.  
+6.  
 
