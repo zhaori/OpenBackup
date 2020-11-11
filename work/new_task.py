@@ -55,7 +55,7 @@ def new_task():
         try:
             os.rename('./json_file.json', entry4.get())  # 重命名
             os.remove('./json_file.json')  # 删除
-            os._exit(0)
+            exit()
         except FileNotFoundError:
             pass
 
@@ -64,4 +64,4 @@ def new_task():
     root.mainloop()
 
 
-new_task()
+# new_task()

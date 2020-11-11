@@ -48,4 +48,5 @@ def tool_hash():
 
 
 if __name__ == '__main__':
-    tool_hash()
+    # tool_hash()
+    pass

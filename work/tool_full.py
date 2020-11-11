@@ -37,4 +37,5 @@ def full_backup():
 
 
 if __name__ == "__main__":
-    full_backup()
+    # full_backup()
+    pass

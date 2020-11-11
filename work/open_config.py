@@ -8,4 +8,4 @@ def open_config():
     os.system('{} {}'.format('notepad', temp_file))
 
 
-open_config()
+# open_config()

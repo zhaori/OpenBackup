@@ -74,4 +74,5 @@ def full_reduction():
 
 
 if __name__ == "__main__":
-    full_reduction()
+    # full_reduction()
+    pass

@@ -8,4 +8,4 @@ def open_take():
     os.system('{} {}'.format('notepad', temp_file))
 
 
-open_take()
+# open_take()

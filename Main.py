@@ -1,25 +1,25 @@
+import os
 from tkinter import Menu, Tk, Text, END, INSERT
 from tkinter.messagebox import showinfo
 
 from config.db_config import *
-from work.crypt_box import crypt_box
-from work.tool_full import full_backup
-from work.tool_reduction import full_reduction
-from work_script import (random_key, open_config, open_task,
-                         hash_box, tool_hash, new_task, system,
-                         signature_box, tool_differ_backup)
+from work import *
 
-system('path=%path%;./')
+os.system('path=%path%;./')
 
 
 def about_main():
-    showinfo(tk_title, '  本程序遵守GPL 3.0协议开源\n '
-                       '  @ Python3.7  2020.10.07\n '
-                       ' by https://github.com/zhaori')
+    showinfo(tk_title, '        本程序遵守GPL 3.0协议开源\n '
+                       '                 @ Python3.7  \n '
+                       ' https://github.com/zhaori/OpenBackup')
 
 
 def t_help():
-    system(r'help.txt')
+    os.system(r'help.txt')
+
+
+def random_key():
+    os.system(r'python work\random_key.py')
 
 
 def main():
@@ -47,8 +47,8 @@ def main():
     menbar = Menu(root)  # 界面
     fmenu = Menu(menbar)  # 文件
     fmenu.add_command(label='新建任务', command=new_task)
-    fmenu.add_command(label='修改任务', command=open_task)
-    fmenu.add_command(label='修改配置文件', command=open_config)
+    fmenu.add_command(label='修改任务', command=open_take)
+    fmenu.add_command(label='修改配置', command=open_config)
     fmenu.add_separator()
     fmenu.add_command(label='退出', command=_quit)
     menbar.add_cascade(label='文件', menu=fmenu)  # 绑定到一级菜单
@@ -57,11 +57,11 @@ def main():
     bf_menu = Menu(root)  # 新建二级菜单绑定子选项
     huanyuan = Menu(root)
     bf_menu.add_command(label='完全备份', command=full_backup)
-    bf_menu.add_command(label='差异备份', command=tool_differ_backup)
+    bf_menu.add_command(label='差异备份', command=differ_backup)
     # bf_menu.add_command(label='增量备份')
     hymenu.add_cascade(label='备份策略', menu=bf_menu)
     huanyuan.add_command(label='完全还原', command=full_reduction)
-    huanyuan.add_command(label='按照时间还原')
+    huanyuan.add_command(label='时间还原')
     # 绑定到一级菜单
     hymenu.add_cascade(label='还原方式', menu=huanyuan)
     menbar.add_cascade(label='功能', menu=hymenu)
@@ -74,8 +74,8 @@ def main():
     ctype_menu.add_command(label='计算哈希值', command=hash_box)
     ctype_menu.add_command(label='加密 & 解密', command=crypt_box)
     ctype_menu.add_command(label='数字签名', command=signature_box)
-    dmenu.add_cascade(label='安全策略', menu=ctype_menu)
     dmenu.add_command(label='随机密钥', command=random_key)
+    dmenu.add_cascade(label='安全策略', menu=ctype_menu)
     menbar.add_cascade(label='工具', menu=dmenu)  # 一级菜单
 
     internet = Menu(menbar)

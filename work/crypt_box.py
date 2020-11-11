@@ -85,4 +85,5 @@ def crypt_box():
 
 
 if __name__ == "__main__":
-    crypt_box()
+    # crypt_box()
+    pass
