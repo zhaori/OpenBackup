@@ -20,7 +20,7 @@ class SysTrayIcon(object):
         hover_text   鼠标停留在图标上方时显示的文字
         menu_options 右键菜单，格式: (('a', None, callback), ('b', None, (('b1', None, callback),)))
         on_quit      传递退出函数，在执行退出时一并运行
-        tk_window    传递Tk窗口，s.root，用于单击图标显示窗口
+        tk_window    传递Tk窗口，self.root，用于单击图标显示窗口
         default_menu_index 不显示的右键菜单序号
         window_class_name  窗口类名
         '''
@@ -125,7 +125,7 @@ class SysTrayIcon(object):
         win32gui.Shell_NotifyIcon(win32gui.NIM_DELETE, nid)
         win32gui.PostQuitMessage(0)  # 终止应用程序。
         if exit and s.on_quit:
-            s.on_quit()  # 需要传递自身过去时用 s.on_quit(s)
+            s.on_quit()  # 需要传递自身过去时用 self.on_quit(self)
         else:
             s.root.deiconify()  # 显示tk窗口
 
@@ -228,7 +228,7 @@ class _Main:  # 调用SysTrayIcon的Demo窗口
         s.root.mainloop()
 
     def switch_icon(s, _sysTrayIcon, icon='D:\\2.ico'):
-        # 点击右键菜单项目会传递SysTrayIcon自身给引用的函数，所以这里的_sysTrayIcon = s.sysTrayIcon
+        # 点击右键菜单项目会传递SysTrayIcon自身给引用的函数，所以这里的_sysTrayIcon = self.sysTrayIcon
         # 只是一个改图标的例子，不需要的可以删除此函数
         _sysTrayIcon.icon = icon
         _sysTrayIcon.refresh_icon()
