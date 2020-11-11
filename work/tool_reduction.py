@@ -36,7 +36,7 @@ def full_reduction():
 
         def return_ok():
             # str(folder).replace('/', '\\')
-            os.system('rmdir /s/q {}'.format(folder))
+            os.system('rmdir /self/q {}'.format(folder))
             os.system(r'move /y {} {} '.format(folder_temp, folder_above))
             win.quit()
             exit()

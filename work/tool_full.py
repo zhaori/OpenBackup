@@ -2,7 +2,7 @@
 import os
 from sqlite3 import OperationalError
 from tkinter.filedialog import askopenfilename
-
+from tkinter.messagebox import showinfo, showerror
 from Lib.json_py import PyJson
 from Lib.safety.hash import Hash
 from Lib.z7 import archive
@@ -31,11 +31,14 @@ def full_backup():
     search_path = [folder]
     for p in search_path:
         quick(db_table, db_mode, db_data).new_index(p)
-
-    h = Hash(r'{}\{}.7z'.format(data_path, folder_file))
-    h.sava_hash(h.md5(), '.md5', data_path)
+    try:
+        h = Hash(r'{}\{}.7z'.format(data_path, folder_file))
+        h.sava_hash(h.md5(), '.md5', data_path)
+        showinfo('提示', '备份完成')
+    except:
+        showerror('警告', '备份失败\n可能与无读写权限有关')
 
 
 if __name__ == "__main__":
     # full_backup()
-    pass
+    showerror('警告', '   备份失败\n可能无读写权限')
