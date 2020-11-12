@@ -128,3 +128,10 @@ dmypy.json
 # Pyre type checker
 .pyre/
 /Lib/pycalendar.py
+/Script/scp.exe
+/Script/sftp.exe
+/Script/ssh.exe
+/Script/ssh-add.exe
+/Script/ssh-agent.exe
+/Script/ssh-keygen.exe
+/Script/ssh-keyscan.exe

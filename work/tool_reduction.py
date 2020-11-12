@@ -27,7 +27,7 @@ def full_reduction():
         width = 250
         height = 90
         win.title(_title)
-        # win.iconbitmap(logo)
+        # _win.iconbitmap(logo)
 
         screenwidth = win.winfo_screenwidth()
         screenheight = win.winfo_screenheight()

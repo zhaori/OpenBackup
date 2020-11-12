@@ -1,5 +1,5 @@
 from time import strftime, localtime, time, sleep
-from Lib.pycalendar import main
+
 _time = 0
 
 
@@ -17,4 +17,3 @@ def now_time():
 
 
 # print(countdown())
-main()

@@ -29,7 +29,7 @@ def main():
         exit()
 
     #def py_calen():
-    #    a = Calendar((width, height), 'ur').selection()
+    #    a = Calendar((_width, _height), 'ur').selection()
     #    print(a)
 
     root = Tk()
