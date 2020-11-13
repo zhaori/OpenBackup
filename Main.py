@@ -1,7 +1,6 @@
 import os
 from tkinter import Menu, Tk, Text, END, INSERT
 from tkinter.messagebox import showinfo
-# from pycalendar import Calendar
 from config.db_config import *
 from work import *
 
@@ -28,9 +27,6 @@ def main():
         root.destroy()
         exit()
 
-    #def py_calen():
-    #    a = Calendar((_width, _height), 'ur').selection()
-    #    print(a)
 
     root = Tk()
     root.iconbitmap(logo)

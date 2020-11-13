@@ -135,3 +135,7 @@ dmypy.json
 /Script/ssh-agent.exe
 /Script/ssh-keygen.exe
 /Script/ssh-keyscan.exe
+/work/begin_calendar.py
+/work/end_calendar.py
+/work/new_taks.py
+/work/begin_calendar.py

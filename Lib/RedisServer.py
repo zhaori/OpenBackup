@@ -58,30 +58,30 @@ if __name__ == "__main__":
     from config.redis_config import *
     r = RedisServer(redis_host, redis_port, db=0)
     data = {
-        "注册账号": "pdh666",
+        "注册账号": "666",
         "登录密码": "666666",
-        "手机号": "135xxxxxxx0410",
-        "微信号": "135xxxxxxx0410",
-        "邮箱": "1471584500",
+        "手机号": "135xxxxxxx",
+        "微信号": "135xxxxxxx",
+        "邮箱": "XXXXX",
         "摊位地点": " ",
         "身份信息": {
             "姓名": "皮得狠",
             "性别": "男",
-            "年龄": "21",
+            "年龄": "2100",
             "籍贯": "中华人民共和国",
             "民族": "汉",
-            "身份证住址": "四川省南充市",
+            "身份证住址": "四川省",
             "身份证号码": "5113211xxxxxxx77100"
 
         }
 
     }
 
-    # r.set("data", data)
-    # r.save()
-    dd = r.search("data")
-    for i in dd.keys():
-        print(i)
+    #r.set("data", data)
+    r.save()
+    #dd = r.search("data")
+    #for i in dd.keys():
+    #    print(i)
     # print(list(data.keys())[0])
     # r.flush()
     # r.update('name', 'zg')
