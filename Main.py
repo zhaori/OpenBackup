@@ -27,7 +27,6 @@ def main():
         root.destroy()
         exit()
 
-
     root = Tk()
     root.iconbitmap(logo)
 

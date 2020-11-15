@@ -8,6 +8,7 @@ from tkinter.filedialog import askopenfilename
 from Lib.Number_CN import num_cn
 from Lib.json_py import PyJson
 from Lib.sqlite import Create_db
+from Lib.safety.hash import Hash
 from config.Differential_config import df_db_mode, df_db_data, time_folder
 from config.db_config import db_table, db_mode, db_data, db_path, windll, logo
 
@@ -39,6 +40,7 @@ def _backup():
     path_list = []
     old_folder_list = []  # 完整备份原始文件
     old_path_list = []  # 完整备份原始文件夹
+    old_file_hash_list = []  # 完整备份的文件哈希值列表
 
     for file in db_raw:
         data = {
@@ -52,13 +54,15 @@ def _backup():
         old_path = data['path'].replace('/', '\\')
         old_folder_list.append(old_folder)
         old_path_list.append(old_path)
-        # print(old_path)
+        old_file_hash_list.append(data['hash'])
 
     now_file_list = []  # 现在的文件
     now_folder_list = []  # 现在的文件夹
+    now_hash_list = []  # 现在的文件哈希值
     for root, basename, filename in os.walk(folder):
         for f in filename:
             now_file_list.append(os.path.join(root, f))
+            now_hash_list.append(Hash(os.path.join(root, f)).md5())
         now_folder_list.append(root)
 
     class list_compare(object):
@@ -76,6 +80,10 @@ def _backup():
 
         def two_one(self):
             return list(set(self.two).difference(set(self.one)))
+
+    for old_hash, new_hash in zip(old_file_hash_list, now_hash_list):
+        if old_hash == new_hash:
+            print(old_hash)
 
     diff_db2 = Create_db(df_db_table, df_db_mode, df_db_data, path=diff_path)
     differ_info = list_compare(now_file_list, old_folder_list).one_two()
@@ -105,7 +113,7 @@ def differ_backup():
     width = 250
     height = 90
     win.title(_title)
-    win.iconbitmap(logo)
+    # win.iconbitmap(logo)
 
     screenwidth = win.winfo_screenwidth()
     screenheight = win.winfo_screenheight()
@@ -117,5 +125,4 @@ def differ_backup():
     win.mainloop()
 
 
-if __name__ == '__main__':
-    differ_backup()
+differ_backup()

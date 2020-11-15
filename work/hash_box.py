@@ -34,7 +34,7 @@ def hash_box():
     width = 250
     height = 200
     win.title(tk_title)
-    win.iconbitmap(logo)
+    #    win.iconbitmap(logo)
 
     screenwidth = win.winfo_screenwidth()
     screenheight = win.winfo_screenheight()
@@ -53,4 +53,5 @@ def hash_box():
     win.mainloop()
 
 
-# hash_box()
+if __name__ == '__main__':
+    hash_box()
