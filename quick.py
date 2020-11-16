@@ -3,7 +3,8 @@ import time
 
 from Lib.sqlite import Create_db
 from config.db_config import *
-from library import ha_hash, r_db_file
+from Lib.safety.Hash import Hash
+from library import r_db_file
 
 
 def _control(_path, filename):
@@ -11,7 +12,7 @@ def _control(_path, filename):
     suffer = os.path.join(_path, filename)
     c_time = os.stat(suffer).st_ctime
     m_time = os.stat(suffer).st_mtime
-    f_hash = ha_hash(suffer)
+    f_hash = Hash(suffer).md5()
     ctime = time.strftime('%Y.%m.%d.%X', time.localtime(c_time))
     mtime = time.strftime('%Y.%m.%d.%X', time.localtime(m_time))
     now_time = time.strftime('%Y%m%d%H%M', time.localtime(time.time()))

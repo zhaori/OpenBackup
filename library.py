@@ -5,15 +5,6 @@ from Lib.sqlite import Create_db, list_to_str
 from config.db_config import *
 
 
-def ha_hash(data):
-    """
-    :param data: 字符串
-    :return: 计算哈希值
-    """
-    text = hashlib.sha256(data.encode("utf8"))
-    return text.hexdigest()
-
-
 def filtrate(li, ignore_list):
     # 过滤无用文件及文件夹
     # 通过

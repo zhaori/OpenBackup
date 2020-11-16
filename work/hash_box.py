@@ -3,7 +3,7 @@ from tkinter import Tk, StringVar, Label, Button
 from tkinter.filedialog import askopenfilename
 from tkinter.ttk import Combobox
 
-from Lib.safety.hash import Hash
+from Lib.safety.Hash import Hash
 from config.db_config import tk_title, logo, windll
 
 

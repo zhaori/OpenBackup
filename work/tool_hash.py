@@ -2,7 +2,7 @@ import os
 from tkinter import Tk, Button, Label
 from tkinter.filedialog import askopenfilename
 
-from Lib.safety.hash import Hash, verify
+from Lib.safety.Hash import Hash, verify
 from config.db_config import windll, logo
 
 

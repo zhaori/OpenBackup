@@ -4,6 +4,7 @@ from tkinter.ttk import Combobox
 from Lib.time_json import create_json
 from config.db_config import tk_title, logo
 
+
 class drop_menu(object):
     """
     下拉框自动生成

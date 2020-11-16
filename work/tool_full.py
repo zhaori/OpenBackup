@@ -4,7 +4,7 @@ from sqlite3 import OperationalError
 from tkinter.filedialog import askopenfilename
 from tkinter.messagebox import showinfo, showerror
 from Lib.json_py import PyJson
-from Lib.safety.hash import Hash
+from Lib.safety.Hash import Hash
 from Lib.z7 import archive
 from config.db_config import db_table, db_data, db_mode, data_path
 from quick import quick

@@ -1,7 +1,7 @@
 from tkinter import Tk, Button
 from tkinter.filedialog import askopenfilename
 
-from Lib.safety.signature import Signature
+from Lib.safety.Signature import Signature
 from config.db_config import windll, logo
 
 
