@@ -38,10 +38,9 @@ def main():
     text.grid(row=2, column=2, columnspan=6, rowspan=15)
 
     # 获取数据
-    data = open('./doc/LICENSE', encoding='utf-8').read()
     # 填充到text控件
     text.delete(1.0, END)
-    text.insert(INSERT, data)
+    text.insert(INSERT, open('./doc/LICENSE', encoding='utf-8').read())
 
     menbar = Menu(root)  # 界面
     fmenu = Menu(menbar)  # 文件
@@ -60,9 +59,11 @@ def main():
     # bf_menu.add_command(label='增量备份')
     hymenu.add_cascade(label='备份策略', menu=bf_menu)
     huanyuan.add_command(label='完全还原', command=full_reduction)
-    huanyuan.add_command(label='时间还原')
+    huanyuan.add_command(label='时间还原', command=recover)
     # 绑定到一级菜单
+
     hymenu.add_cascade(label='还原方式', menu=huanyuan)
+    hymenu.add_cascade(label='计划任务')
     menbar.add_cascade(label='功能', menu=hymenu)
 
     dmenu = Menu(menbar)  # 一级菜单
