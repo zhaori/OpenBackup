@@ -1,6 +1,6 @@
 from tkinter import Tk, IntVar, Radiobutton, Label, StringVar, Entry
 
-from Lib.safety.hash import Create_AESKey
+from Lib.safety.Hash import Create_AESKey
 from config.db_config import *
 
 

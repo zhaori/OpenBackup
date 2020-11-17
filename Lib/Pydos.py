@@ -10,4 +10,4 @@ def sys_copy(old_file, new_file):
 
 
 def copy_folder(old_folder, new_folder):
-    os.system(r'xcopy /self /e {} {}'.format(old_folder, new_folder))
+    os.system(r'xcopy /self /e {} {} /y'.format(old_folder, new_folder))

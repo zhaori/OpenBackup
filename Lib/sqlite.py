@@ -13,7 +13,7 @@ class NOT_OPEN_SQLITE(Exception):
 
 class Create_db(object):
 
-    def __init__(self, table, mode, sql, path):
+    def __init__(self, table=None, mode=None, sql=None, path=None):
         self.table = table  # 表名
         self.mode = mode  # 插入表
         self.sql = sql  # 插入数据
