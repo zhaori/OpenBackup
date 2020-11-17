@@ -19,6 +19,7 @@ df_db_mode = """
         create table """ + df_db_table + """ (
             [id] integer PRIMARY KEY AUTOINCREMENT,
             difference text,
+            reduce text,
             now_time text
         )
 """
@@ -26,9 +27,9 @@ df_db_mode = """
 # 插入数据
 df_db_data = """
         insert into """ + df_db_table + """ 
-            (difference, now_time) 
+            (difference, reduce, now_time) 
             values 
-            (:difference, :now_time)        
+            (:difference, :reduce, :now_time)        
 """
 
 # 找寻文件夹

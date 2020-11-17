@@ -9,6 +9,7 @@ from Lib.Number_CN import num_cn
 from Lib.json_py import PyJson
 from Lib.sqlite import Create_db
 from Lib.safety.Hash import Hash
+from tkinter.messagebox import showinfo
 from config.Differential_config import df_db_mode, df_db_data, time_folder
 from config.db_config import db_table, db_mode, db_data, db_path, windll, logo
 
@@ -36,7 +37,6 @@ def _backup():
                 if one != two:
                     one_list.append(one)
             return one_list
-            # return list(set(self.one).intersection(self.two))
 
     open_file = askopenfilename(title='打开任务文件', filetypes=([('任务文件json', '.json')]))
     p_j = PyJson(open_file)
@@ -51,7 +51,7 @@ def _backup():
     db_raw = Create_db(db_table, db_mode, db_data, path=db_path).search_sql(
         'file_path, file_name, file_hash')  # 读取完整备份数据库
     df_db_table = num_cn(time_folder)
-    diff_path = r'.\backups\TimeBackup\Differential.db'  # 差异备份数据库
+    diff_path = r'.\backups\TimeBackup\{}.db'.format(basename_folder)  # 差异备份数据库
 
     diff_db = Create_db(df_db_table, df_db_mode, df_db_data, path=diff_path)
     try:
@@ -102,6 +102,7 @@ def _backup():
     for info in differ_info:
         data_data = {
             'difference': info,
+            'reduce': '{}.7z'.format(new_backup),
             'now_time': time_folder
         }
         diff_db2.add_sql(data_data)
@@ -110,6 +111,7 @@ def _backup():
 
     diff_db2.com_clone()
     os.system(r'{} -mx5 -t7z a {} {} -mmt -sdel'.format('7z', '{}'.format(new_backup), new_backup))
+    showinfo('提示', '备份成功')
 
 
 def close():
