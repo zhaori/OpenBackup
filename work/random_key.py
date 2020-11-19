@@ -1,7 +1,7 @@
 from tkinter import Tk, IntVar, Radiobutton, Label, StringVar, Entry
 
 from Lib.safety.Hash import Create_AESKey
-from config.db_config import *
+from config.Main_config import logo
 
 
 def random_key():

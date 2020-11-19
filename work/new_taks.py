@@ -5,7 +5,7 @@ from tkinter.filedialog import askdirectory
 from tkinter.messagebox import showinfo
 
 from Lib.json_py import PyJson
-from config.db_config import tk_title, logo
+from config.Main_config import tk_title, logo
 from Lib.time_json import file_json
 
 

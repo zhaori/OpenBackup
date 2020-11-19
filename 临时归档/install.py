@@ -3,7 +3,7 @@ import os
 # import platform
 
 # os_name = platform.system()
-package_list = ['rsa', 'numpy==1.19.3', 'matplotlib']
+package_list = ['rsa', 'watchdog', 'pymongo']
 # package_list = ['pyqt5', 'PyQt5-tools', 'PyQtWebEngine', 'PyQtChart', 'QScintilla']
 # package_list = ['redis==2.10.6', 'rsa']
 # package_list = ['pyinstaller']

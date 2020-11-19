@@ -1,12 +1,4 @@
-from ctypes import windll
 from os import path
-
-# from gettime import now_time
-
-tk_title = 'OpenBackup 0.0.1 beta'
-logo = './pk.ico'
-
-windll.shell32.SetCurrentProcessExplicitAppUserModelID('version')
 
 python_shell = r'python'
 
@@ -42,19 +34,6 @@ db_data = """
             (:file_path, :file_name, :c_time, :x_time, :now_time , :file_hash )        
 """
 
-search_path = [
-    r'D:\Pycharm-workspace\垃圾回收站\文件资源管理器'
-]
-
-# dict ca_info type
-ignore_file_name = None
-ignore_file_size = None
-
-"""
-"""
-# p_j = PyJson('temp.json')
-# os.mkdir(time_folder)
-# new_zip = archive(time_folder, p_j.read('folder'))
-# new_zip.seven_zip(time_folder)
-"""
+df_db_mode = """
+    create 
 """

@@ -1,8 +1,6 @@
 import os
 import time
 
-from Lib.WindowsNews import show_error
-
 
 class Data_Type_Error(Exception):
     def __init__(self, *args, **kwargs):
@@ -61,18 +59,6 @@ class get_log(object):
         else:
             with open('error.log', 'w') as e:
                 e.write('')
-
-
-def error_error(error_file, data, problem, option=None):
-    """
-    Option 是否弹出Windows弹框的开关，默认不开
-    """
-    err = "{}      {}     {}".format(str(error_file), str(data.__traceback__.tb_lineno), problem)
-    if option is True:
-        show_error(err)
-        return err
-    else:
-        return err
 
 
 if __name__ == "__main__":

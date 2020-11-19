@@ -14,7 +14,7 @@ from Lib.Pydos import sys_move
 from Lib.json_py import PyJson
 from Lib.z7 import archive
 from config.db_config import data_path
-from config.db_config import windll
+from config.Main_config import windll
 
 
 def full_reduction():

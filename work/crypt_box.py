@@ -1,13 +1,13 @@
 import os
 from tkinter import Tk, Button
 from tkinter.filedialog import askopenfilename
-
-from Lib.Error import show_error
+from tkinter.messagebox import showerror
+#from Lib.Error import show_error
 from Lib.safety.AES import AES
 from Lib.safety.RSA import RSA
 from Lib.safety.Hash import Create_AESKey
 from config.db_config import *
-
+from config.Main_config import windll, tk_title, logo
 
 # ------------------------------------加密--------------------------------#
 def crypt_box():
@@ -17,7 +17,7 @@ def crypt_box():
 
     def get_aes_key():
         if 'key' in os.listdir(aes_key_path):
-            show_error('key文件已存在，请删除后再重试')
+            showerror('错误提示', 'key文件已存在，请删除后再重试')
         else:
             with open(aes_key, 'w') as f:
                 f.write(Create_AESKey(64))

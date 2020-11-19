@@ -10,8 +10,9 @@ from Lib.json_py import PyJson
 from Lib.sqlite import Create_db
 from Lib.safety.Hash import Hash
 from tkinter.messagebox import showinfo
-from config.Differential_config import df_db_mode, df_db_data, time_folder
-from config.db_config import db_table, db_mode, db_data, db_path, windll, logo
+from config.differential_config import  df_db_mode, df_db_data, time_folder
+from config.db_config import db_table, db_mode, db_data, db_path
+from config.Main_config import windll, logo
 
 
 def _backup():

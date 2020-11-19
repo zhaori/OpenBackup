@@ -4,7 +4,7 @@ from tkinter.filedialog import askopenfilename
 from tkinter.ttk import Combobox
 
 from Lib.safety.Hash import Hash
-from config.db_config import tk_title, logo, windll
+from config.Main_config import tk_title, logo, windll
 
 
 # ----------------------生成哈希值----------------- #

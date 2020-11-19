@@ -3,7 +3,7 @@ from tkinter import Tk, Button, Label
 from tkinter.filedialog import askopenfilename
 
 from Lib.safety.Hash import Hash, verify
-from config.db_config import windll, logo
+from config.Main_config import windll, logo
 
 
 def tool_hash():

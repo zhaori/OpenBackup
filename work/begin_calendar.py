@@ -2,7 +2,7 @@ import os
 from tkinter import Tk, StringVar, Label, Button
 from tkinter.ttk import Combobox
 from Lib.time_json import create_json
-from config.db_config import tk_title, logo
+from config.Main_config import logo
 
 
 class drop_menu(object):
