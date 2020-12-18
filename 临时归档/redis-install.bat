@@ -1,1 +1,0 @@
-.\Script\redis.exe --service-install .\config\redis.conf --loglevel verbose
