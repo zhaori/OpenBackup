@@ -3,7 +3,6 @@ from tkinter import Menu, Tk, Text, END, INSERT, PhotoImage
 from threading import Thread
 from setting.Main_Config import tk_title, logo
 from work import *
-from work.differ_backup import differ_backup
 from setting.Main_Config import about_main, read_help
 from work.transmit import open_record, del_history, Transmit
 
