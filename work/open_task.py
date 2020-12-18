@@ -7,5 +7,4 @@ def open_take():
     temp_file = askopenfilename(title='打开json任务文件', filetypes=([('json', '.json')]))
     os.system('{} {}'.format('notepad', temp_file))
 
-
 # open_take()

@@ -1,8 +1,7 @@
-import hashlib
 import os
 
 from Lib.sqlite import Create_db, list_to_str
-from config.db_config import *
+from setting.DB_Config import *
 
 
 def filtrate(li, ignore_list):

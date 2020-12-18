@@ -1,0 +1,15 @@
+关于OpenBackup
+一、数据库字段设计
+    SQLite -->完全备份的数据记录--
+                                -- file_path: 文件绝对路径
+                                -- file_name: 文件名
+                                -- c_time：文件创建时间
+                                -- x_time: 文件修改时间
+                                -- now_time：当前时间
+                                -- file_hash: 文件的MD5值
+                                
+    Mongodb---> 任务存储、选择、文档快照、快照恢复功能：
+                                 -- tasks 新建的任务存储集合
+                                 -- select 当前任务的选择
+                                 -- hisroty 文件操作记录
+                                 -- log: 上传下载的记录

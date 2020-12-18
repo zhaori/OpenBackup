@@ -1,16 +1,19 @@
 import pymongo
-import hashlib
-import os
-import logging
+
+
+class MongodbNOTFoundTableERROR(Exception):
+
+    def __init__(self, *args, **kwargs):
+        pass
+
+    def __str__(self):
+        return '未找到Mongodb数据库的表'
 
 
 class Mongodb_server(object):
     def __init__(self, host, port):
         # url_info = 'mongodb://{}:{}@{}:{}/{}'.format(db_name, db_password, host, port, db)
-        try:
-            self.server = pymongo.MongoClient(host, port, serverSelectionTimeoutMS=3000, socketTimeoutMS=3000)
-        except:
-            os.system('server restart mongodb')
+        self.server = pymongo.MongoClient(host, port, serverSelectionTimeoutMS=3000, socketTimeoutMS=3000)
 
     def insert(self, db, table, data):
         """
@@ -21,6 +24,8 @@ class Mongodb_server(object):
             db_table.insert_one(data)
         except ValueError:
             raise ValueError
+        finally:
+            self.server.close()
 
     def insert_list(self, db, table, data):
         """
@@ -34,19 +39,23 @@ class Mongodb_server(object):
             db_table.insert(data.copy())
         except ValueError:
             raise ValueError
+        finally:
+            self.server.close()
 
-    def search(self, data, table, key):
+    def search(self, db, table, key) -> list:
         """
         :param key: 格式例如：{"_id": 0, "username": 1},0为不查询，1为查询
         :return:
         """
-        db_table = self.server[data][table]
-        vule_list = [k for k in db_table.find({}, key)]
-        return vule_list
+        db_table = self.server[db][table]
+        return [k for k in db_table.find({}, key)]
 
-    def search_one(self, data, table, value):
-        db_table = self.server[data][table]
-        return db_table.find_one({}, value)
+    def search_one(self, db, table, key):
+        return self.server[db][table].find_one({}, key)
+
+    def search_table(self, db) -> list:
+        # 返回集合名的列表
+        return self.server[db].list_collection_names()
 
     def update(self, db, table, old, new):
         """
@@ -58,9 +67,25 @@ class Mongodb_server(object):
         """
         db_table = self.server[db][table]
         db_table.update_many(old, new)
+        self.server.close()
 
-    def delete(self, db, table, data):
-        pass
+    def del_key(self, db, table, data: dict):
+        try:
+            self.server[db][table].delete_many(data)
+        except Exception as e:
+            raise e
+        finally:
+            self.server.close()
+
+    def del_table(self, db):
+        # 删除表
+        table_list = self.search_table(db)
+        if table_list:
+            for t in table_list:
+                self.server[db][t].drop()
+            self.server.close()
+        else:
+            raise MongodbNOTFoundTableERROR
 
 
 if __name__ == "__main__":
@@ -85,10 +110,8 @@ if __name__ == "__main__":
 
     }
     """
-    from Lib.config.db_config import *
+    from setting.MongoDB_Config import mongo_host, mongo_port
 
-    db = Mongodb_server(host, port)
-    name = db.search("User", "sys_info", {"_id": 0, "username": 1, "email": 1})
-    for i in name:
-        if i["username"] == "客户":
-            print(type(i["email"]))
+    db = Mongodb_server(mongo_host, mongo_port)
+    # name = db.search_one("tasks", "文件资源管理器", {"_id": 0, 'folder': 1})
+    #print(db.search_set('tasks'))

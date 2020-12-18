@@ -3,7 +3,7 @@ from tkinter import Tk, Button, Label
 from tkinter.filedialog import askopenfilename
 
 from Lib.safety.Hash import Hash, verify
-from config.Main_config import windll, logo
+from setting.Main_Config import logo
 
 
 def tool_hash():
@@ -31,7 +31,6 @@ def tool_hash():
             Label(text='验证通过', font=('宋体', '13')).place(relx=0.32, rely=0.1, width=80, height=30)
 
     win = Tk()  # 构造窗体
-    windll.shell32.SetCurrentProcessExplicitAppUserModelID('version')  # 任务栏图标
 
     _title = '哈希验证'
     width = 250
@@ -48,5 +47,4 @@ def tool_hash():
 
 
 if __name__ == '__main__':
-    # tool_hash()
-    pass
+    tool_hash()

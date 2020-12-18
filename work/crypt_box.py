@@ -2,17 +2,18 @@ import os
 from tkinter import Tk, Button
 from tkinter.filedialog import askopenfilename
 from tkinter.messagebox import showerror
-#from Lib.Error import show_error
+
+# from Lib.Error import show_error
 from Lib.safety.AES import AES
-from Lib.safety.RSA import RSA
 from Lib.safety.Hash import Create_AESKey
-from config.db_config import *
-from config.Main_config import windll, tk_title, logo
+from Lib.safety.RSA import RSA
+from setting.Main_Config import tk_title, logo
+from setting.DB_Config import *
+
 
 # ------------------------------------加密--------------------------------#
 def crypt_box():
     win = Tk()  # 构造窗体
-    windll.shell32.SetCurrentProcessExplicitAppUserModelID('version')  # 任务栏图标
     aes_key = os.path.join(aes_key_path, 'key')
 
     def get_aes_key():
@@ -34,7 +35,7 @@ def crypt_box():
             a = AES(filename, key)
             a.encrypt(out_path=folder_path)
         except FileNotFoundError as e:
-            show_error(e)
+            raise FileNotFoundError
 
     def aes_decrypt():
         encrypt_file = str(askopenfilename(title='解密文件', filetypes=([('file', '.file')])))  # 打开加密文件

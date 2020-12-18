@@ -19,22 +19,23 @@ class archive(object):
         self.folder = folder  # 压缩文件存放目录
         self.script = '7z'
 
-    def seven_zip(self, filename, option=0):
+    def seven_zip(self, filename, option=None):
         # filename 压缩包名，无需后缀
         file = os.path.join(self.folder, filename)
-        if option == 0:
-            os.system(r'{} -mx5 -t7z a {} {} -mmt'.format(self.script, file, self.source))
+        if option is None:
+            os.system(r'{} -mx5 -t7z a {} {}\* -mmt'.format(self.script, file, self.source))
         elif option == 1:
             # 压缩并删除源文件
-            os.system(r'{} -mx5 -t7z a {} {} -mmt -sdel'.format(self.script, file, self.source))
+            os.system(r'{} -mx5 -t7z a {} {}\* -mmt -sdel'.format(self.script, file, self.source))
 
-    def unzip(self, path, destination):
+    @staticmethod
+    def unzip(path, destination):
         """
         path: 压缩包路径
         destination：解压目的地
         return: 解压目的文件夹可以不存在，如不存在自动创建
         """
-        os.system(r'{} x {} -y -aos -o{}'.format(self.script, path, destination))
+        os.system(r'{} x {} -y -aos -o{}'.format('7z', path, destination))
 
 
 if __name__ == "__main__":

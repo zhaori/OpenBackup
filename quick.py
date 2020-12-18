@@ -1,9 +1,9 @@
 import os
 import time
 
-from Lib.sqlite import Create_db
-from config.db_config import *
 from Lib.safety.Hash import Hash
+from Lib.sqlite import Create_db
+from setting.DB_Config import *
 from library import r_db_file
 
 

@@ -1,8 +1,9 @@
 import os
 from tkinter import Tk, StringVar, Label, Button
 from tkinter.ttk import Combobox
+
 from Lib.time_json import create_json
-from config.Main_config import logo
+from setting.Main_Config import logo
 
 
 class drop_menu(object):

@@ -2,7 +2,7 @@ from tkinter import Tk, Button
 from tkinter.filedialog import askopenfilename
 
 from Lib.safety.Signature import Signature
-from config.Main_config import windll, logo
+from setting.Main_Config import logo
 
 
 # --------------------------------数字验证----------------------------- #
@@ -16,7 +16,6 @@ def signature_box():
         exit()
 
     win = Tk()  # 构造窗体
-    windll.shell32.SetCurrentProcessExplicitAppUserModelID('version')  # 任务栏图标
 
     _title = '数字签名'
     width = 250
@@ -32,6 +31,5 @@ def signature_box():
     Button(win, text='签名', command=sign).place(relx=0.1, rely=0.6, width=80, height=30)
     Button(win, text='验证').place(relx=0.56, rely=0.6, width=80, height=30)
     win.mainloop()
-
 
 # signature_box()

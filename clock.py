@@ -15,5 +15,4 @@ def countdown():
 def now_time():
     return strftime('%Y-%m-%d %H:%M:%S', localtime(time()))
 
-
 # print(countdown())
