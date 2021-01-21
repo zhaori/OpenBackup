@@ -4,7 +4,6 @@ from work.delete_task import task_delete
 from work.differ_backup import differ_backup
 from work.hash_box import hash_box
 from work.incremental_backup import incremental_backup
-from work.modify_task import open_take
 from work.new_tasks import new_task
 from work.open_task import open_tasks
 from work.recovery import recovery_run

@@ -1,16 +1,11 @@
 import os
 from threading import Thread
 from tkinter import Menu, Tk
+
 from config.Main_Config import about_main, read_help, tk_title, logo, ssh_options
 from config.Net_Config import host
-from work import *
 from update import update_file
-
-
-def random_key_main():
-    # 此处如果使用的是os.system或者用的是subprocess运行程序都会阻塞主进程导致无法使用其它功能
-    # 同时，random_key无法像其它模块能够直接通过Main引用，因此编译成exe可执行文件运行
-    os.popen(r'random_key.exe')
+from work import *
 
 
 def get_listen_info():
@@ -28,8 +23,8 @@ class Openbackup(object):
 
     def __init__(self):
         self.root = Tk()
-        self.width = 499
-        self.height = 338
+        self.width = 550
+        self.height = 400
         self.root.title(tk_title)
         self.root.iconbitmap(logo)
 
@@ -62,7 +57,6 @@ class Openbackup(object):
         # --------文件--------#
         self.wj.add_command(label='新建任务', command=new_task)
         self.wj.add_command(label='加载任务', command=open_tasks)
-        self.wj.add_command(label='修改任务', command=open_take)
         self.wj.add_command(label='删除任务', command=task_delete)
         self.wj.add_separator()
 

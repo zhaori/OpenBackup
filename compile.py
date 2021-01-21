@@ -2,11 +2,16 @@ import os
 from threading import Thread
 
 """
-:compile_list 编译文件的路径，可以为绝对路径或相对路径，在路径前加r，以python解释器分辨为字符串
+:compile_list 编译文件的路径
 """
 
 compile_list = [
-    "listen_service.pyw"
+    "listen_service.pyw",
+    r".\work\begin_calendar.pyw",
+    r".\work\end_calendar.pyw",
+    "watch_listen.pyw",
+    "AddPATH.py",
+    "Main.pyw"
 ]
 
 
