@@ -6,13 +6,16 @@
 如后续需要支持跨平台，可以加一句系统判断后利用系统原生命令进行处理
 """
 import os
-from setting.Main_Config import READ_DB
+from importlib import reload
 from tkinter.messagebox import showinfo
 
 from Lib.PyDOS import sys_move
 from Lib.z7 import archive
+from config import Main_Config
+from config.DB_Config import data_path
+from config.Main_Config import READ_DB
 
-from setting.DB_Config import data_path
+reload(Main_Config)  # 重载配置
 
 
 def full_reduction():

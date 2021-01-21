@@ -3,7 +3,7 @@ from tkinter import Tk, Button, Label
 from tkinter.filedialog import askopenfilename
 
 from Lib.safety.Hash import Hash, verify
-from setting.Main_Config import logo
+from config.Main_Config import logo
 
 
 def tool_hash():

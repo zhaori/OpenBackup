@@ -4,13 +4,12 @@ from tkinter.filedialog import askopenfilename
 from tkinter.ttk import Combobox
 
 from Lib.safety.Hash import Hash
-from setting.Main_Config import tk_title, logo
+from config.Main_Config import tk_title, logo
 
 
 # ----------------------生成哈希值----------------- #
 def hash_box():
     win = Tk()  # 构造窗体
-    windll.shell32.SetCurrentProcessExplicitAppUserModelID('version')  # 任务栏图标
 
     def exit_os():
         # 退出

@@ -5,14 +5,13 @@
 
 import os
 import shutil
-
 from tkinter.messagebox import showinfo
 
 from Lib.PyDOS import sys_copy
 from Lib.safety.Hash import Hash
 from Lib.z7 import archive
-from setting.Main_Config import READ_DB
-from setting.Differential_Config import time_folder
+from config.Differential_Config import time_folder
+from config.Main_Config import READ_DB
 
 
 def incremental_backup():
@@ -23,6 +22,13 @@ def incremental_backup():
     new_backup = r'.\backups\incremental\{}\{}'.format(basename_folder, time_folder)  # 生成以日期命名的文件夹
     if os.path.exists(new_backup) is False:
         os.makedirs(new_backup)
+
+    if not os.listdir(new_backup):  # 以最新的一次差异备份的备份文件做备份底包
+        basename_folder = os.path.basename(READ_DB)  # 不包含文件夹路径，只取文件夹名字
+        diff_backup = r'.\backups\TimeBackup\{}'.format(basename_folder)
+        copy_file = os.listdir(diff_backup)[-1]
+        filepath, file = os.path.split(copy_file)
+        sys_copy(os.path.join(diff_backup, copy_file), r'.\backups\incremental\{}\{}'.format(basename_folder, file))
 
     # 将上一次备份的文件解压到临时文件夹中
     file_zip_path = r'.\backups\incremental\{}'.format(basename_folder)
@@ -109,10 +115,11 @@ def incremental_backup():
             del_data.append(_old)
 
     for _new in now_folder_list:
+        # 这里是新文件不在老文件夹中的时候
         if _new not in old_path_list:
             add_data.append(_new)
 
-    def find_child_folder(path: str, data: str):
+    def find_child_folder(path, data):
         """
          #:param path: 绝对路径
          #:param data: 查询数据
@@ -136,9 +143,9 @@ def incremental_backup():
                     pass
 
     #  解压完全备份文件,与增量备份合并
-    new_zip = archive(data_path, READ_DB)
-    file_7z = '{}/{}.7z'.format(data_path, basename_folder)
-    new_zip.unzip(file_7z, temp_folder)  # 解压到TEMP临时文件夹
+    # new_zip = archive(data_path, READ_DB)
+    # file_7z = '{}/{}.7z'.format(data_path, basename_folder)
+    # new_zip.unzip(file_7z, temp_folder)  # 解压到TEMP临时文件夹
     os.system(r'{} -mx5 -t7z a {} {}\* -mmt -sdel'.format('7z', '{}'.format(new_backup), temp_folder))
     os.system('rd {}'.format(new_backup))
     showinfo('提示', '备份成功')

@@ -2,7 +2,7 @@ from tkinter import Tk, Button
 from tkinter.filedialog import askopenfilename
 
 from Lib.safety.Signature import Signature
-from setting.Main_Config import logo
+from config.Main_Config import logo
 
 
 # --------------------------------数字验证----------------------------- #

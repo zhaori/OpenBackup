@@ -8,10 +8,9 @@ from Lib.Number_CN import num_cn
 from Lib.PyDOS import sys_copy
 from Lib.safety.Hash import Hash
 from Lib.sqlite import Create_db
-from Lib.z7 import archive
-from setting.Main_Config import READ_DB
-from setting.DB_Config import db_table, db_mode, db_data, db_path
-from setting.Differential_Config import df_db_mode, df_db_data, time_folder
+from config.DB_Config import db_table, db_mode, db_data, db_path
+from config.Differential_Config import df_db_mode, df_db_data, time_folder
+from config.Main_Config import READ_DB
 
 
 def differ_backup():
@@ -172,9 +171,9 @@ def differ_backup():
 
     diff_db2 = Create_db(df_db_table, df_db_mode, df_db_data, path=diff_path)
     #  解压完全备份文件与差异备份合并
-    new_zip = archive(data_path, READ_DB)
-    file_7z = '{}/{}.7z'.format(data_path, basename_folder)
-    new_zip.unzip(file_7z, temp_folder)  # 解压到TEMP临时文件夹
+    # new_zip = archive(data_path, READ_DB)
+    # file_7z = '{}/{}.7z'.format(data_path, basename_folder)
+    # new_zip.unzip(file_7z, temp_folder)  # 解压到TEMP临时文件夹
     for info in add_data:
         temp_file = os.path.join(temp_folder, find_child_folder(info['difference'], basename_folder))
         filepath, file = os.path.split(temp_file)
@@ -191,7 +190,7 @@ def differ_backup():
 
         diff_db2.add_sql(info)
     diff_db2.com_clone()
-
+    """
     for i in del_data:
         temp_file = os.path.join(temp_folder, find_child_folder(i, basename_folder))
         try:
@@ -201,6 +200,7 @@ def differ_backup():
                 shutil.rmtree(temp_file)  # 删除文件夹
         except FileNotFoundError:
             pass
+    """
 
     os.system(r'{} -mx5 -t7z a {} {}\* -mmt -sdel'.format('7z', '{}'.format(new_backup), temp_folder))
     os.system(f'rd {new_backup}')

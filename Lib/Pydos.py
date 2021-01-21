@@ -19,3 +19,8 @@ def copy_folder(old_folder, new_folder):
 def del_file(folder):
     # 删除文件
     os.system("del {} /s /f /q".format(folder))
+
+
+def kill_pid(id):
+    # 根据进程号杀死进程
+    os.system(f"taskkill/pid {id} -f")

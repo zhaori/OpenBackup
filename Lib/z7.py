@@ -9,6 +9,9 @@ import os
 7 LZMA 32 MB 64 BT4 BCJ最大压缩
 9 LZMA 64 MB 64 BT4 BCJ2超压缩-mdNm
 -mmt 开启多线程模式
+
+解压缩中
+-aoa 解压并覆盖无提示
 """
 
 
@@ -35,7 +38,7 @@ class archive(object):
         destination：解压目的地
         return: 解压目的文件夹可以不存在，如不存在自动创建
         """
-        os.system(r'{} x {} -y -aos -o{}'.format('7z', path, destination))
+        os.system(r'{} x {} -aoa -o{}'.format('7z', path, destination))
 
 
 if __name__ == "__main__":

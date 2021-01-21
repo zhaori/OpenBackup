@@ -1,7 +1,5 @@
 import sqlite3
 
-from Lib.Error import DB_existed
-
 
 class NOT_OPEN_SQLITE(Exception):
     def __init__(self, *args, **kwargs):
@@ -35,13 +33,12 @@ class Create_db(object):
     def new_sql(self):
         # 数据库创建、插入表
         # md是model.py里的模板
-        try:
-            self.con.execute(self.mode)
-            self.com_clone()
-            print('Start database successfully')
-        except DB_existed:
-            raise DB_existed
-            # 捕获SQLite数据库 table datafile already exists
+
+        self.con.execute(self.mode)
+        self.com_clone()
+        print('Start database successfully')
+
+        # 捕获SQLite数据库 table datafile already exists
 
     def add_sql(self, add_data: dict):
         """

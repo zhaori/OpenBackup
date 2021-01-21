@@ -1,17 +1,18 @@
 import os
-from Lib.PySSH import PySFTP
-from Lib.z7 import archive
-from setting.Main_Config import READ_DB
-from setting.Net_Config import serverpath, transmit_time
-import subprocess
-from setting.MongoDB_Config import mongo_host, mongo_port
-from Lib.MongoDBSever import Mongodb_server
+from time import sleep
 from tkinter import Tk, StringVar
 from tkinter.messagebox import showinfo
 from tkinter.ttk import Combobox
-from setting.Main_Config import logo
+
+from Lib.MongoDBSever import Mongodb_server
+from Lib.PyDOS import kill_pid
+from Lib.PySSH import PySFTP
+from Lib.z7 import archive
+from config.Main_Config import READ_DB
+from config.Main_Config import logo
+from config.MongoDB_Config import mongo_host, mongo_port
+from config.Net_Config import serverpath, transmit_time
 from work.gettime import now_time_s
-from time import sleep
 
 pid = None
 
@@ -57,41 +58,42 @@ class Transmit(object):
         archive.unzip(clint, source)
 
     def _up_down(self):
-        # 上传和下载
+        # 上传和下载,视作同步
         archive(self.zip_temp, READ_DB).seven_zip(self.folder_file)
-        sftp = PySFTP()
+        sftp_up = PySFTP()
         Mongodb_server(mongo_host, mongo_port).insert("log", "automation", {'time': now_time_s(), 'handle': '上传'})
-        sftp.sftp_up(self.compressed_files, self.server_file)
-        sftp.sftp_down(self.server_file, self.compressed_files)
+        sftp_up.sftp_up(self.compressed_files, self.server_file)
+        sftp_up.sftp_close()
+        sftp_down = PySFTP()
+        sftp_down.sftp_down(self.server_file, self.compressed_files)
+        sftp_down.sftp_close()
         Mongodb_server(mongo_host, mongo_port).insert("log", "automation", {'time': now_time_s(), 'handle': '下载'})
         archive.unzip(self.compressed_files, READ_DB)
         Transmit().clean_temp()
 
     def automation(self):
-        with open(f'{os.getpid()}.pid', 'w') as f:
-            f.write('')
+        with open(f'pid', 'w') as f:
+            f.write(str(os.getpid()))
         while 1:
             if transmit_time is None:
                 self._up_down()
                 sleep(60)
-            elif not transmit_time is None:
+            elif transmit_time is not None:
                 self._up_down()
                 sleep(transmit_time)
 
-    def sys_pid(self):
-        return self.pid
-
-    #def clean_temp(self):
-    #    os.remove(self.compressed_files)
+    def clean_temp(self):
+        os.remove(self.compressed_files)
 
 
 def run_automation():
-    # Process(target=Transmit().automation).start()
-    subprocess.run('./automation.exe')
+    from multiprocessing import Process
+    Process(target=Transmit().automation).start()
 
 
 def stop():
-    pass
+    with open(r'.\pid', 'r') as f:
+        kill_pid(int(f.read()))
 
 
 def del_history():
@@ -110,7 +112,7 @@ class history_record(object):
         self.height = 200
         self.win.title('历史记录')
 
-        # self.win.iconbitmap(logo)
+        self.win.iconbitmap(logo)
         screenwidth = self.win.winfo_screenwidth()
         screenheight = self.win.winfo_screenheight()
         aligner = '%dx%d+%d+%d' % (self.width, self.height, (screenwidth - self.width) / 2,
@@ -154,9 +156,6 @@ class history_record(object):
 
     def Main(self):
         self._win()
-        # Button(self.win, text='确定', command=self.ok).place(relx=0.05, rely=0.75, width=70, height=30)
-        # Button(self.win, text='删除', command=self.del_data).place(relx=0.36, rely=0.75, width=70, height=30)
-        # Button(self.win, text='取消', command=self._exit_win).place(relx=0.68, rely=0.75, width=70, height=30)
         self.win.mainloop()
 
 
@@ -166,5 +165,6 @@ def open_record():
 
 
 if __name__ == '__main__':
-    run_automation()
+    # run_automation()
+    stop()
     # print(get_db_table())

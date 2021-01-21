@@ -2,9 +2,27 @@ import os
 import time
 
 from Lib.safety.Hash import Hash
-from Lib.sqlite import Create_db
-from setting.DB_Config import *
-from library import r_db_file
+from Lib.sqlite import Create_db, list_to_str
+from config.DB_Config import *
+
+
+class r_db_file(object):
+
+    def __init__(self):
+        self.db = Create_db(db_table, db_mode, db_data, db_path)
+        self.db_li_path = self.db.search_sql('file_path, file_name')
+
+    def get_file(self, find_str):
+        # 得到文件所在路径
+        for s in self.db_li_path:
+            if s[1] == find_str:
+                return os.path.join(s[0], s[1])
+
+    def r_list(self):
+        # 获取数据库里的所有文件名并以列表的形式返回
+        return [list_to_str(f) for f in self.db.search_sql('file_name')]
+        # for f in self.db.search_sql('file_name'):
+        #    print(str(f).strip('()'))
 
 
 def _control(_path, filename):
@@ -32,28 +50,23 @@ def _control(_path, filename):
 class quick(object):
 
     def __init__(self, table, mode, data, d_path=db_path):
-        self.file_li = []  # 本地创建的文件列表
         self.table = table  # 表名
         self.mode = mode  # 建字段
         self.data = data  # 插入数据SQL语句
         self.db = Create_db(self.table, self.mode, self.data, d_path)
 
-    def _len_file(self):
-        # return:file_li number
-        return len(self.file_li)
-
     def new_db(self):
         self.db.new_sql()
 
     def new_index(self, s_path):
-        # 创建索引
+        # 插入数据
         t = time.time()
         try:
             for root, file_p, filename in os.walk(s_path):
                 if filename and root:
                     for name in filename:
                         self.db.add_sql(_control(root, name))
-                        self.file_li.append(name)
+                        # self.file_li.append(name)
             self.db.com_clone()
         except OSError:
             # 因为文件访问权限问题，不可能所有都能搜索，因此忽略掉这部分
@@ -67,34 +80,5 @@ class quick(object):
         return r_db_file().r_list()
 
 
-def x_x():
-    import textwrap
-    help_2 = textwrap.dedent("""\
-            help:程序默认生成backup和data两个文件夹，前者是备份文件夹，后者是数据库文件存放位置可以在配置文件做修改
-                1.  %s         2. %s
-            """ % ("创建新数据库", "开始搜索"))
-
-    return help_2
-
-
 if __name__ == "__main__":
-
-    def r_q():
-        q = quick(db_table, db_mode, db_data)
-        return q
-
-
-    while 1:
-        print(x_x())
-        n = input('Please input your number:')
-
-        if n == "1":
-            if db_name not in os.listdir(data_path):
-                r_q().new_db()
-                print('数据库创建成功')
-            else:
-                print('数据库已存在，无需重复新建')
-
-        elif n == "2":
-            for p in search_path:
-                r_q().new_index(p)
+    pass

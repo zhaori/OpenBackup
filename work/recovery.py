@@ -1,22 +1,23 @@
 import os
+from ctypes import windll
 from tkinter import Tk, StringVar, Button
 from tkinter.messagebox import showerror
 from tkinter.ttk import Combobox
+
 from Lib.z7 import archive
-from ctypes import windll
-from setting.Main_Config import READ_DB, logo
+from config.Main_Config import READ_DB, logo
+
+BACKUP_FILE: str
 
 
 def get_file():
     """
     获取所有的差异备份文件
     """
-    file_list = []
+    global BACKUP_FILE
     basename_folder = os.path.basename(READ_DB)  # 不包含文件夹路径，只取文件夹名字
-    new_backup = r'.\backups\TimeBackup\{}'.format(basename_folder)
-    for filename in os.listdir(new_backup):
-        file_list.append(filename)
-    return file_list
+    BACKUP_FILE = r'.\backups\TimeBackup\{}'.format(basename_folder)
+    return os.listdir(BACKUP_FILE)
 
 
 class recovery_win(object):
@@ -46,17 +47,12 @@ class recovery_win(object):
         return t, d
 
     def ok(self):
-        file_folder = []
-        for root, dirs, file in os.walk(READ_DB):
-            remove_file = [os.remove(os.path.join(root, f)) for f in file if root and file]
-            file_folder.append(root.replace('/', '\\'))
 
-        for i in file_folder[1:]:
-            os.system(f'rd /s/q {i}')
+        for root, dirs, file in os.walk(READ_DB):
+            [os.remove(os.path.join(root, f)) for f in file if root and file]  # 清空源文件夹的内容
 
         t, d = recovery_win.handle(self)
-        archive_7z = f"{d}{'.7z'}"
-        differ_archive = os.path.join(READ_DB, archive_7z)
+        differ_archive = os.path.join(BACKUP_FILE, f"{d}{'.7z'}").replace('/', '\\')
         unzip = archive(differ_archive, READ_DB)
         unzip.unzip(differ_archive, READ_DB)
 

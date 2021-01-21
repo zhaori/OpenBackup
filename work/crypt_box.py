@@ -1,4 +1,5 @@
 import os
+import time
 from tkinter import Tk, Button
 from tkinter.filedialog import askopenfilename
 from tkinter.messagebox import showerror
@@ -7,8 +8,8 @@ from tkinter.messagebox import showerror
 from Lib.safety.AES import AES
 from Lib.safety.Hash import Create_AESKey
 from Lib.safety.RSA import RSA
-from setting.Main_Config import tk_title, logo
-from setting.DB_Config import *
+from config.DB_Config import *
+from config.Main_Config import tk_title, logo
 
 
 # ------------------------------------加密--------------------------------#
@@ -29,6 +30,7 @@ def crypt_box():
         folder_path, file_name = os.path.split(filename)
         new_key_name = "{}".format(os.path.join(folder_path, '{}.key'.format(file_name)))
         os.renames(aes_key, new_key_name)
+        start_time = time.clock()
         try:
             with open(new_key_name, 'r') as k:
                 key = k.read()
@@ -36,6 +38,7 @@ def crypt_box():
             a.encrypt(out_path=folder_path)
         except FileNotFoundError as e:
             raise FileNotFoundError
+        print(time.clock() - start_time)
 
     def aes_decrypt():
         encrypt_file = str(askopenfilename(title='解密文件', filetypes=([('file', '.file')])))  # 打开加密文件
@@ -46,7 +49,7 @@ def crypt_box():
             a = AES(encrypt_file, key)
             a.decrypt(encrypt_file, '{}.de'.format(os.path.splitext(encrypt_file)[0]))
         except FileNotFoundError as e:
-            show_error(e)
+            showerror(e)
 
     def rsa_encrypt():
         filename = str(askopenfilename(title='打开文件'))
@@ -55,7 +58,7 @@ def crypt_box():
             r = RSA(rsa_key, filename)
             r.encrypt(rsa_key)
         except FileNotFoundError:
-            show_error('未找到公钥文件或取消了执行')
+            showerror('未找到公钥文件或取消了执行')
 
     def rsa_decrypt():
         filename = str(askopenfilename(title='打开文件', filetypes=([('rsa', '.rsa')])))
@@ -64,7 +67,7 @@ def crypt_box():
             r = RSA(rsa_key, filename)
             r.decrypt(rsa_key, filename)
         except FileNotFoundError:
-            show_error('未找到私钥文件取消了执行')
+            showerror('未找到私钥文件取消了执行')
 
     _title = '加密&解密'
     width = 280

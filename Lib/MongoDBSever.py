@@ -1,4 +1,5 @@
 import pymongo
+from pymongo.errors import ServerSelectionTimeoutError
 
 
 class MongodbNOTFoundTableERROR(Exception):
@@ -13,7 +14,10 @@ class MongodbNOTFoundTableERROR(Exception):
 class Mongodb_server(object):
     def __init__(self, host, port):
         # url_info = 'mongodb://{}:{}@{}:{}/{}'.format(db_name, db_password, host, port, db)
-        self.server = pymongo.MongoClient(host, port, serverSelectionTimeoutMS=3000, socketTimeoutMS=3000)
+        try:
+            self.server = pymongo.MongoClient(host, port, serverSelectionTimeoutMS=3000, socketTimeoutMS=3000)
+        except ServerSelectionTimeoutError:
+            pass
 
     def insert(self, db, table, data):
         """
@@ -51,11 +55,17 @@ class Mongodb_server(object):
         return [k for k in db_table.find({}, key)]
 
     def search_one(self, db, table, key):
-        return self.server[db][table].find_one({}, key)
+        try:
+            return self.server[db][table].find_one({}, key)
+        except TypeError:
+            return None
 
     def search_table(self, db) -> list:
         # 返回集合名的列表
-        return self.server[db].list_collection_names()
+        try:
+            return self.server[db].list_collection_names()
+        except ServerSelectionTimeoutError or TypeError:
+            pass
 
     def update(self, db, table, old, new):
         """
@@ -110,8 +120,8 @@ if __name__ == "__main__":
 
     }
     """
-    from setting.MongoDB_Config import mongo_host, mongo_port
+    from config.MongoDB_Config import mongo_host, mongo_port
 
     db = Mongodb_server(mongo_host, mongo_port)
     # name = db.search_one("tasks", "文件资源管理器", {"_id": 0, 'folder': 1})
-    #print(db.search_set('tasks'))
+    # print(db.search_set('tasks'))

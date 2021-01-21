@@ -1,12 +1,11 @@
 import os
-from tkinter import Menu, Tk, Text, END, INSERT, PhotoImage
 from threading import Thread
-from setting.Main_Config import tk_title, logo
+from tkinter import Menu, Tk
+from config.Main_Config import about_main, read_help, tk_title, logo, ssh_options
+from config.Net_Config import host
 from work import *
-from setting.Main_Config import about_main, read_help
-from work.transmit import open_record, del_history, Transmit
+from update import update_file
 
-os.system(f'path=%path%;{os.path.abspath("./Script")}')
 
 def random_key_main():
     # 此处如果使用的是os.system或者用的是subprocess运行程序都会阻塞主进程导致无法使用其它功能
@@ -16,9 +15,13 @@ def random_key_main():
 
 def get_listen_info():
     def run():
-        os.system(r'watch_listen.exe')
+        os.popen(r'watch_listen.exe')
 
     Thread(target=run).start()
+
+
+def ping_network():
+    os.system(f'ping {host}')
 
 
 class Openbackup(object):
@@ -29,13 +32,6 @@ class Openbackup(object):
         self.height = 338
         self.root.title(tk_title)
         self.root.iconbitmap(logo)
-        text = Text(self.root)
-        text.grid(row=2, column=2, columnspan=6, rowspan=15)
-
-        # 获取数据
-        # 填充到text控件
-        text.delete(1.0, END)
-        text.insert(INSERT, open('./LICENSE', encoding='utf-8').read())
 
         # 居中
         screenwidth = self.root.winfo_screenwidth()
@@ -57,30 +53,6 @@ class Openbackup(object):
         self.ctype_menu = Menu(self.root)
         self.transmit = Menu(self.root)
 
-        # 图标设置
-        self.shang_chuan = PhotoImage(file='.\logo\上传.gif')
-        self.xia_zai = PhotoImage(file='.\logo\下载.gif')
-        self.guan_yu = PhotoImage(file='.\logo\关于.gif')
-        self.tong_bu = PhotoImage(file='.\logo\同步.gif')
-        self.zeng_liang_bei_fen = PhotoImage(file='.\logo\增量备份.gif')
-        self.shou_hu_jin_cheng = PhotoImage(file='.\logo\守护.gif')
-        self.shui_ji_mi_yao = PhotoImage(file='.\logo\密钥.gif')
-        self.bang_zhu = PhotoImage(file='.\logo\帮助.gif')
-        self.kuai_zhao = PhotoImage(file='.\logo\快照.gif')
-        self.shu_ju_jia_mi = PhotoImage(file='.\logo\数据加密.gif')
-        self.zeng_liang_hui_fu = PhotoImage(file='.\logo\时光机器.gif')
-        self.jian_kong_wen_jian_xi_tong = PhotoImage(file='.\logo\监控.gif')
-        self.ying_pan = PhotoImage(file='.\logo\硬盘.gif')
-        self.ying_pan_fu_zhi = PhotoImage(file='.\logo\硬盘复制.gif')
-        self.shu_zi_qian_ming = PhotoImage(file='.\logo\签名.gif')
-        self.ji_hua_ren_wu = PhotoImage(file='.\logo\计划.gif')
-        self.ji_shuan_ha_xi = PhotoImage(file='.\logo\计算.gif')
-        self.huan_yuan = PhotoImage(file='.\logo\还原.gif')
-        self.tui_chu = PhotoImage(file=r'.\logo\退出.gif')
-        self.yan_zheng = PhotoImage(file='.\logo\验证.gif')
-        self.cha_yi_bei_fen = PhotoImage(file='.\logo\差异.gif')
-        self.che_lue = PhotoImage(file='.\logo\策略.gif')
-
     def _quit(self):
         self.root.quit()
         self.root.destroy()
@@ -89,49 +61,51 @@ class Openbackup(object):
     def _menu(self):
         # --------文件--------#
         self.wj.add_command(label='新建任务', command=new_task)
-        self.wj.add_command(label='修改任务', command=open_take)
         self.wj.add_command(label='加载任务', command=open_tasks)
+        self.wj.add_command(label='修改任务', command=open_take)
+        self.wj.add_command(label='删除任务', command=task_delete)
         self.wj.add_separator()
 
-        self.wj.add_command(label='退出', command=self._quit, image=self.tui_chu, compound='left')
+        self.wj.add_command(label='退出', command=self._quit)
         self.menbar.add_cascade(label='文件', menu=self.wj)  # 绑定到一级菜单
 
         # --------功能--------#
-        self.bf.add_command(label='完全备份', command=full_backup, image=self.ying_pan_fu_zhi, compound='left')
-        self.bf.add_command(label='差异备份', command=differ_backup, image=self.cha_yi_bei_fen, compound='left')
-        self.bf.add_command(label='增量备份', command=incremental_backup, image=self.zeng_liang_bei_fen, compound='left')
-        self.bf.add_command(label='文件快照', command=get_listen_info, image=self.kuai_zhao, compound='left')
-        self.gn.add_cascade(label='备份策略', menu=self.bf, image=self.che_lue, compound='left')
-        self.huanyuan.add_command(label='完全还原', command=full_reduction, image=self.huan_yuan, compound='left')
-        self.huanyuan.add_command(label='时光回溯', command=recovery_run, image=self.zeng_liang_hui_fu, compound='left')
+        self.bf.add_command(label='完全备份', command=full_backup)
+        self.bf.add_command(label='差异备份', command=differ_backup)
+        self.bf.add_command(label='增量备份', command=incremental_backup)
+        self.bf.add_command(label='文件快照', command=get_listen_info)
+        self.gn.add_cascade(label='备份策略', menu=self.bf)
+        self.huanyuan.add_command(label='完全还原', command=full_reduction)
+        self.huanyuan.add_command(label='时光回溯', command=recovery_run)
 
-        self.gn.add_cascade(label='还原方式', menu=self.huanyuan, image=self.huan_yuan, compound='left')
-        self.gn.add_cascade(label='计划任务', image=self.ji_hua_ren_wu, compound='left')
+        self.gn.add_cascade(label='还原方式', menu=self.huanyuan)
+        self.gn.add_cascade(label='计划任务')
         self.menbar.add_cascade(label='功能', menu=self.gn)
 
         # --------工具--------#
-        self.gj.add_command(label='哈希验证', command=tool_hash, image=self.yan_zheng, compound='left')
-        self.gj.add_command(label='随机密钥', command=random_key_main, image=self.shui_ji_mi_yao, compound='left')
-        self.gj.add_cascade(label='安全策略', menu=self.ctype_menu, image=self.che_lue, compound='left')
-        self.ctype_menu.add_command(label='计算哈希值', command=hash_box, image=self.ji_shuan_ha_xi, compound='left')
-        self.ctype_menu.add_command(label='加密 & 解密', command=crypt_box, image=self.shu_ju_jia_mi, compound='left')
-        self.ctype_menu.add_command(label='数字签名', command=signature_box, image=self.shu_zi_qian_ming, compound='left')
+        self.gj.add_command(label='哈希验证', command=tool_hash)
+        self.gj.add_command(label='计算哈希值', command=hash_box)
+        self.gj.add_command(label='加密 & 解密', command=crypt_box)
+        self.gj.add_command(label='数字签名', command=signature_box)
         self.menbar.add_cascade(label='工具', menu=self.gj)
 
         # --------网络--------#
+        self.net.add_command(label="PING", command=ping_network)
+        self.net.add_command(label="设置", command=ssh_options)
         self.net.add_command(label="上传", command=Transmit().up)
         self.net.add_command(label="下载", command=Transmit().down)
-        # self.net.add_cascade(label='自动', menu=self.transmit)
+        self.net.add_cascade(label='自动任务', menu=self.transmit)
 
         self.net.add_command(label='历史记录', command=open_record)
         self.net.add_command(label='清空记录', command=del_history)
-        # self.transmit.add_command(label='开始同步', command=run_automation)
-        # self.transmit.add_command(label='终止同步', command=os._exit)
+        self.transmit.add_command(label='开始同步', command=run_automation)
+        self.transmit.add_command(label='终止同步', command=stop)
         self.menbar.add_cascade(label='同步', menu=self.net)
 
         # --------帮助--------#
-        self.help.add_command(label='帮助', command=read_help, image=self.bang_zhu, compound='left')
-        self.help.add_command(label='关于本程序', command=about_main, image=self.guan_yu, compound='left')
+        self.help.add_command(label='帮助', command=read_help)
+        self.help.add_command(label='更新', command=update_file)
+        self.help.add_command(label='关于本程序', command=about_main)
         self.menbar.add_cascade(label='关于', menu=self.help)
 
     def create_win(self):
@@ -143,5 +117,4 @@ class Openbackup(object):
 
 
 if __name__ == '__main__':
-    from work.differ_backup import differ_backup
-    differ_backup()
+    Openbackup().create_win()
