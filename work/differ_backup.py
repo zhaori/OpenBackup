@@ -5,7 +5,7 @@ import sqlite3
 from tkinter.messagebox import showinfo
 
 from Lib.Number_CN import num_cn
-from Lib.PyDOS import sys_copy
+from Lib.Pydos import sys_copy
 from Lib.safety.Hash import Hash
 from Lib.sqlite import Create_db
 from config.DB_Config import db_table, db_mode, db_data, db_path
@@ -158,7 +158,8 @@ def differ_backup():
             add_data.append(diff_data)
 
     temp_folder = r".\Temp"  # 临时文件夹
-    data_path = r'.\backups'  # 备份文件夹
+
+    # data_path = r'.\backups'  # 备份文件夹
 
     def find_child_folder(path: str, data: str):
         """

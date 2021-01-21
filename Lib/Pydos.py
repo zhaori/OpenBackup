@@ -21,6 +21,6 @@ def del_file(folder):
     os.system("del {} /s /f /q".format(folder))
 
 
-def kill_pid(id):
+def kill_pid(pid):
     # 根据进程号杀死进程
-    os.system(f"taskkill/pid {id} -f")
+    os.system(f"taskkill/pid {pid} -f")

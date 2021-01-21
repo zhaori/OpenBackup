@@ -5,8 +5,8 @@ from tkinter.messagebox import showinfo
 from tkinter.ttk import Combobox
 
 from Lib.MongoDBSever import Mongodb_server
-from Lib.PyDOS import kill_pid
 from Lib.PySSH import PySFTP
+from Lib.Pydos import kill_pid
 from Lib.z7 import archive
 from config.Main_Config import READ_DB
 from config.Main_Config import logo
@@ -154,14 +154,15 @@ class history_record(object):
         self.comboxlist.bind("<<ComboboxSelected>>", self.handle)  # 绑定事件,(下拉列表框被选中时，绑定handle()函数)
         self.comboxlist.place(relx=0.2, rely=0.25, width=150, height=40)
 
-    def Main(self):
+    # noinspection PyPep8Naming
+    def main(self):
         self._win()
         self.win.mainloop()
 
 
 def open_record():
     # 加载配置文件
-    history_record().Main()
+    history_record().main()
 
 
 if __name__ == '__main__':

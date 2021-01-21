@@ -103,6 +103,7 @@ def start_server(dis_dir):
         raise WindowsError('系统无权限访问')
     observer.join()
 
+
 """
 def start_process(n: list):
     process_list = [Thread(target=start_server, args=(i,)) for i in n]

@@ -3,8 +3,9 @@ import os
 
 
 class file_json(object):
+    # noinspection PyPep8Naming
     def __init__(self):
-        Data_Json = {
+        data_json = {
             "begin": '',
             "end": ''
 
@@ -13,7 +14,7 @@ class file_json(object):
         self.json_file = "time.json"
         if os.path.isfile(self.json_file) is False:
             with open(self.json_file, 'w', encoding="utf-8") as f:
-                f.write(json.dumps(Data_Json, indent=4, ensure_ascii=False))
+                f.write(json.dumps(data_json, indent=4, ensure_ascii=False))
 
     def upgrade_value(self, root, value):
         """

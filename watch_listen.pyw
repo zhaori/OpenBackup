@@ -31,13 +31,14 @@ class SysTrayIcon(object):
         window_class_name  窗口类名
         """
         self.hwnd = None
+        self.notify_id = None
         self.icon = icon
         self.on_quit = on_quit
         self.root = tk_window
 
         self._next_action_id = self.FIRST_ID
         self.menu_actions_by_id = set()
-        self.menu_actions_by_id = dict(self.menu_actions_by_id)
+        self.menu_actions_by_id_dict = dict(self.menu_actions_by_id)
         del self._next_action_id
 
         self.default_menu_index = (default_menu_index or 0)
@@ -51,7 +52,7 @@ class SysTrayIcon(object):
         window_class = win32gui.WNDCLASS()
         window_class.hInstance = win32gui.GetModuleHandle(None)
         window_class.lpszClassName = self.window_class_name
-        window_class.style = win32con.CS_VREDRAW | win32con.CS_HREDRAW;
+        window_class.style = win32con.CS_VREDRAW | win32con.CS_HREDRAW
         window_class.hCursor = win32gui.LoadCursor(0, win32con.IDC_ARROW)
         window_class.hbrBackground = win32con.COLOR_WINDOW
         window_class.lpfnWndProc = message_map  # 也可以指定wndproc.
@@ -75,7 +76,7 @@ class SysTrayIcon(object):
                                           hinst,
                                           None)
         win32gui.UpdateWindow(self.hwnd)
-        self.notify_id = None
+
         self.refresh_icon()
 
         win32gui.PumpMessages()
@@ -176,21 +177,22 @@ class SysTrayIcon(object):
                                                                 hSubMenu=submenu)
                 win32gui.InsertMenuItem(menu, 0, 1, item)
 
+    # noinspection PyPep8Naming,PyPep8Naming,PyPep8Naming
     def prep_menu_icon(self, icon):
         # 加载图标。
         ico_x = win32api.GetSystemMetrics(win32con.SM_CXSMICON)
         ico_y = win32api.GetSystemMetrics(win32con.SM_CYSMICON)
         hicon = win32gui.LoadImage(0, icon, win32con.IMAGE_ICON, ico_x, ico_y, win32con.LR_LOADFROMFILE)
 
-        hdcBitmap = win32gui.CreateCompatibleDC(0)
-        hdcScreen = win32gui.GetDC(0)
-        hbm = win32gui.CreateCompatibleBitmap(hdcScreen, ico_x, ico_y)
-        hbmOld = win32gui.SelectObject(hdcBitmap, hbm)
+        hdc_bitmap = win32gui.CreateCompatibleDC(0)
+        hdc_screen = win32gui.GetDC(0)
+        hbm = win32gui.CreateCompatibleBitmap(hdc_screen, ico_x, ico_y)
+        hbm_old = win32gui.SelectObject(hdc_bitmap, hbm)
         brush = win32gui.GetSysColorBrush(win32con.COLOR_MENU)
-        win32gui.FillRect(hdcBitmap, (0, 0, 16, 16), brush)
-        win32gui.DrawIconEx(hdcBitmap, 0, 0, hicon, ico_x, ico_y, 0, 0, win32con.DI_NORMAL)
-        win32gui.SelectObject(hdcBitmap, hbmOld)
-        win32gui.DeleteDC(hdcBitmap)
+        win32gui.FillRect(hdc_bitmap, (0, 0, 16, 16), brush)
+        win32gui.DrawIconEx(hdc_bitmap, 0, 0, hicon, ico_x, ico_y, 0, 0, win32con.DI_NORMAL)
+        win32gui.SelectObject(hdc_bitmap, hbm_old)
+        win32gui.DeleteDC(hdc_bitmap)
 
         return hbm
 
@@ -199,14 +201,11 @@ class SysTrayIcon(object):
         self.execute_menu_option(id)
 
     def execute_menu_option(self, id):
-        menu_action = self.menu_actions_by_id[id]
+        menu_action = self.menu_actions_by_id_dict[id]
         if menu_action == self.QUIT:
             win32gui.DestroyWindow(self.hwnd)
         else:
             menu_action(self)
-
-    # Main = _Main()
-    # Main.main()
 
 
 class manage_listen(object):
@@ -262,14 +261,16 @@ class Show_Window(object):
     def _stop():
         manage_listen().stop()
 
-    def exit(self, _sysTrayIcon=None):
+    # noinspection PyPep8Naming
+    def exit(self, _systrayIcon=None):
         """
         窗口退出
         """
         self.win.destroy()
         print('exit...')
 
-    def Hidden_window(self, icon=logo):
+    # noinspection PyPep8Naming
+    def hidden_window(self, icon=logo):
         """
         隐藏窗口至托盘区，调用SysTrayIcon的重要函数
         """
@@ -284,7 +285,7 @@ class Show_Window(object):
 
     def show(self):
         self.win.bind("<Unmap>",
-                      lambda event: self.Hidden_window() if self.win.state() == 'iconic' else False)
+                      lambda event: self.hidden_window() if self.win.state() == 'iconic' else False)
         Label(self.win, text='文件系统监听守护', font=("黑体", "12")).place(relx=0.23, rely=0.1, width=140, height=40)
         Button(self.win, text='启动', command=self._start).place(relx=0.1, rely=0.6, width=80, height=30)
         Button(self.win, text='停止', command=self._stop).place(relx=0.56, rely=0.6, width=80, height=30)

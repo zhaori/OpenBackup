@@ -7,7 +7,7 @@ import os
 import shutil
 from tkinter.messagebox import showinfo
 
-from Lib.PyDOS import sys_copy
+from Lib.Pydos import sys_copy
 from Lib.safety.Hash import Hash
 from Lib.z7 import archive
 from config.Differential_Config import time_folder
@@ -17,7 +17,6 @@ from config.Main_Config import READ_DB
 def incremental_backup():
     basename_folder = os.path.basename(READ_DB)  # 不包含文件夹路径，只取文件夹名字
     temp_folder = r".\Temp"  # 临时文件夹
-    data_path = r'.\backups'  # 备份文件夹
 
     new_backup = r'.\backups\incremental\{}\{}'.format(basename_folder, time_folder)  # 生成以日期命名的文件夹
     if os.path.exists(new_backup) is False:

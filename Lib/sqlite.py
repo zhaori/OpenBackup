@@ -87,12 +87,12 @@ class Create_db(object):
             )
             return sql_data.fetchall()
 
-    def update_sql(self, table, value, data, id):
+    def update_sql(self, table, value, data, dbid):
         # 更新数据
         with sqlite3.connect(self.dbpath) as con:
             con.execute(
                 "update %s set %s = '%s' where id = %d"
-                % (table, value, data, id)
+                % (table, value, data, dbid)
             )
             # con.execute('update pwd set username = "zzg" where id = 1')
         print('update %s \'self %s successfully ' % (table, value))

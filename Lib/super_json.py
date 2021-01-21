@@ -98,7 +98,8 @@ class SuperJSON(object):
         self.data_json[key] = value
         self._write()
 
+
 if __name__ == '__main__':
     db = SuperJSON('../update.json')
-    db.drop_db('Rust', data="Hello")
+    # db.drop_db('Rust', data="Hello")
     # print(db.search_key('Python', 'OpenBackup', 'version'))

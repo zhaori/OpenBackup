@@ -1,8 +1,9 @@
 from tkinter import Tk, StringVar, Button
 from tkinter.messagebox import showerror
 from tkinter.ttk import Combobox
-from config.Main_Config import logo
+
 from Lib.MongoDBSever import Mongodb_server
+from config.Main_Config import logo
 from config.MongoDB_Config import mongo_host, mongo_port
 
 
@@ -52,7 +53,8 @@ class delete_tasks(object):
         self.comboxlist.bind("<<ComboboxSelected>>", self.handle)  # 绑定事件,(下拉列表框被选中时，绑定handle()函数)
         self.comboxlist.place(relx=0.2, rely=0.25, width=140, height=35)
 
-    def Main(self):
+    # noinspection PyPep8Naming
+    def main(self):
         self._win()
         Button(self.win, text='删除', command=self.ok).place(relx=0.05, rely=0.75, width=70, height=30)
         Button(self.win, text='取消', command=self._exit_win).place(relx=0.68, rely=0.75, width=70, height=30)
@@ -60,8 +62,7 @@ class delete_tasks(object):
 
 
 def task_delete():
-    delete_tasks().Main()
-
+    delete_tasks().main()
 
 
 if __name__ == '__main__':

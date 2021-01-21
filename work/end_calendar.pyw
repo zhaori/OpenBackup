@@ -15,6 +15,7 @@ class drop_menu(object):
         self._root = root
         self._width = 60
         self._height = 30
+        self.comboxlist = None
 
     def handle(self, *args):  # 处理事件
         with open('end_time', 'a+', encoding='utf-8') as f:

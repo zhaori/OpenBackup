@@ -1,8 +1,9 @@
 from tkinter import Tk, StringVar, Button
 from tkinter.messagebox import showerror, showinfo
 from tkinter.ttk import Combobox
-from config.Main_Config import logo
+
 from Lib.MongoDBSever import Mongodb_server
+from config.Main_Config import logo
 from config.MongoDB_Config import mongo_host, mongo_port
 
 
@@ -60,7 +61,8 @@ class Open_tasks(object):
         self.comboxlist.bind("<<ComboboxSelected>>", self.handle)  # 绑定事件,(下拉列表框被选中时，绑定handle()函数)
         self.comboxlist.place(relx=0.2, rely=0.25, width=140, height=35)
 
-    def Main(self):
+    # noinspection PyPep8Naming
+    def main(self):
         self._win()
         Button(self.win, text='确定', command=self.ok).place(relx=0.05, rely=0.75, width=70, height=30)
         Button(self.win, text='取消', command=self._exit_win).place(relx=0.68, rely=0.75, width=70, height=30)
@@ -69,7 +71,7 @@ class Open_tasks(object):
 
 def open_tasks():
     # 加载配置文件
-    Open_tasks().Main()
+    Open_tasks().main()
 
 
 # open_config()

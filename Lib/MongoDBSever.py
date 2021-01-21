@@ -72,8 +72,6 @@ class Mongodb_server(object):
         old = {"username": "皮得狠1", "phone": "123456"}
         new = {"$set": {"username": "皮得狠1", "phone": "123456789"}}
         mycol.update_many(old, new)
-        :param value:
-        :return:
         """
         db_table = self.server[db][table]
         db_table.update_many(old, new)

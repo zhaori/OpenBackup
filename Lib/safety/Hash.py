@@ -33,7 +33,8 @@ class Hash(object):
             f.write(file)
 
 
-def Create_AESKey(byes: int):
+# noinspection PyPep8Naming
+def create_aesKey(byes: int):
     """
     生成随机口令
     """
@@ -52,4 +53,4 @@ if __name__ == "__main__":
     h.sava_hash(h.md5(), '.md5')
     # print(h.sha1())
     # h.sava_hash(h.sha1(),'.sha1', '../')
-    # print(Create_AESKey(256))
+    # print(create_aesKey(256))

@@ -6,7 +6,7 @@ from tkinter.messagebox import showerror
 
 # from Lib.Error import show_error
 from Lib.safety.AES import AES
-from Lib.safety.Hash import Create_AESKey
+from Lib.safety.Hash import create_aesKey
 from Lib.safety.RSA import RSA
 from config.DB_Config import *
 from config.Main_Config import tk_title, logo
@@ -22,7 +22,7 @@ def crypt_box():
             showerror('错误提示', 'key文件已存在，请删除后再重试')
         else:
             with open(aes_key, 'w') as f:
-                f.write(Create_AESKey(64))
+                f.write(create_aesKey(64))
 
     def aes_encrypt():
         # AES 加密，根据加密文件大小决定加密速度
@@ -36,7 +36,7 @@ def crypt_box():
                 key = k.read()
             a = AES(filename, key)
             a.encrypt(out_path=folder_path)
-        except FileNotFoundError as e:
+        except FileNotFoundError:
             raise FileNotFoundError
         print(time.clock() - start_time)
 
