@@ -1,22 +1,27 @@
 import os
 from ctypes import windll
+from threading import Thread
 from tkinter.messagebox import showinfo
+
 from Lib.MongoDBSever import Mongodb_server
 from config.MongoDB_Config import *
-from threading import Thread
+
 windll.shell32.SetCurrentProcessExplicitAppUserModelID('version')
 
 with open('version', 'r') as f:
     tk_title = f'OpenBackup{f.read()}'
 logo = r'./main.ico'
 
+BACKUP_PATH = r'.\backups'
+TEMP_PATH = r".\Temp"
 # 加载任务
 mongodb = Mongodb_server(mongo_host, mongo_port)
 try:
-    READ_DB = mongodb.search_one('tasks', mongodb.search_table('select')[0], {"_id": 0, 'folder': 1})['folder']
+    READ_DB = str(
+        mongodb.search_one('tasks', mongodb.search_table('select')[0], {"_id": 0, 'folder': 1})['folder']).replace('/',
+                                                                                                                   '\\')
 except Exception:
     READ_DB = '/'
-
 
 
 def about_main():

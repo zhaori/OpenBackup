@@ -33,9 +33,9 @@ class Mongodb_server(object):
 
     def insert_list(self, db, table, data):
         """
-
-        :param table:
-        :param data:
+        :param db: 数据库名称
+        :param table:表名
+        :param data:数据
         :return: 插入多条数据，以列表或者元组形式可迭代
         """
         try:

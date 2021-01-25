@@ -178,7 +178,8 @@ class SysTrayIcon(object):
                 win32gui.InsertMenuItem(menu, 0, 1, item)
 
     # noinspection PyPep8Naming,PyPep8Naming,PyPep8Naming
-    def prep_menu_icon(self, icon):
+    @staticmethod
+    def prep_menu_icon(icon):
         # 加载图标。
         ico_x = win32api.GetSystemMetrics(win32con.SM_CXSMICON)
         ico_y = win32api.GetSystemMetrics(win32con.SM_CYSMICON)

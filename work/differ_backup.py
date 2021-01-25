@@ -8,20 +8,24 @@ from Lib.Number_CN import num_cn
 from Lib.Pydos import sys_copy
 from Lib.safety.Hash import Hash
 from Lib.sqlite import Create_db
-from config.DB_Config import db_table, db_mode, db_data, db_path
-from config.Differential_Config import df_db_mode, df_db_data, time_folder
+from config.DB_Config import db_table, db_mode, db_data
+from config.Differential_Config import df_db_mode, df_db_data
 from config.Main_Config import READ_DB
+from work.gettime import now_time
 
 
 def differ_backup():
+    time_folder = str(type('now', (), {'__repr__': lambda s: now_time()})())
     basename_folder = os.path.basename(READ_DB)  # 不包含文件夹路径，只取文件夹名字
 
     new_backup = r'.\backups\TimeBackup\{}\{}'.format(basename_folder, time_folder)  # 生成以日期命名的文件夹
     if os.path.exists(new_backup) is False:
         os.makedirs(new_backup)
 
-    db_raw = Create_db(db_table, db_mode, db_data, path=db_path).search_sql(
+    db_raw = Create_db(db_table, db_mode, db_data,
+                       path=fr'.\backups\{f"{basename_folder}.db"}').search_sql(
         'file_path, file_name, file_hash')  # 读取完整备份数据库
+
     df_db_table = num_cn(time_folder)
     diff_path = r'.\backups\TimeBackup\{}.db'.format(basename_folder)  # 差异备份数据库
 
@@ -64,12 +68,12 @@ def differ_backup():
     # 验证文件哈希值，如果哈希值相同但名称不同，证明文件名被修改
     # 如果老文件与新文件都存在，但新文件哈希值不等于老文件哈希值，证明文件被修改过
 
-    def hash_or_file(data):
+    def hash_or_file(file_data):
         hash_file_dict = dict()  # 通过哈希值找寻源文件名
         for key, value in zip(old_file_hash_list, old_file_list):
-            if data == 'hash':  # 通过哈希值返回文件
+            if file_data == 'hash':  # 通过哈希值返回文件
                 hash_file_dict[key] = value
-            elif data == 'file':
+            elif file_data == 'file':
                 hash_file_dict[value] = key
         return hash_file_dict
 
@@ -171,10 +175,7 @@ def differ_backup():
         return p[len(data) + 1: len(p)]
 
     diff_db2 = Create_db(df_db_table, df_db_mode, df_db_data, path=diff_path)
-    #  解压完全备份文件与差异备份合并
-    # new_zip = archive(data_path, READ_DB)
-    # file_7z = '{}/{}.7z'.format(data_path, basename_folder)
-    # new_zip.unzip(file_7z, temp_folder)  # 解压到TEMP临时文件夹
+
     for info in add_data:
         temp_file = os.path.join(temp_folder, find_child_folder(info['difference'], basename_folder))
         filepath, file = os.path.split(temp_file)
@@ -191,7 +192,7 @@ def differ_backup():
 
         diff_db2.add_sql(info)
     diff_db2.com_clone()
-    """
+
     for i in del_data:
         temp_file = os.path.join(temp_folder, find_child_folder(i, basename_folder))
         try:
@@ -201,7 +202,6 @@ def differ_backup():
                 shutil.rmtree(temp_file)  # 删除文件夹
         except FileNotFoundError:
             pass
-    """
 
     os.system(r'{} -mx5 -t7z a {} {}\* -mmt -sdel'.format('7z', '{}'.format(new_backup), temp_folder))
     os.system(f'rd {new_backup}')

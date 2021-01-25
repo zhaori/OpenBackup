@@ -10,7 +10,9 @@ from config.Main_Config import READ_DB
 from quick import quick
 
 
+# noinspection PyGlobalUndefined
 def full_backup():
+    global db_path
     folder_file = os.path.basename(READ_DB)  # 截取全路径最后一个反斜杠，可以是文件夹或文件
     if not os.path.exists('./backups'):
         os.mkdir('./backups')
@@ -24,7 +26,7 @@ def full_backup():
         # 数据库文件重复存在错误检测，如果已存在则忽略
         pass
 
-    quick(db_table, db_mode, db_data).new_index(READ_DB)
+    quick(db_table, db_mode, db_data, d_path=db_path).new_index(READ_DB)
     try:
         h = Hash(r'{}\{}.7z'.format(data_path, folder_file))
         h.sava_hash(h.md5(), '.md5', data_path)

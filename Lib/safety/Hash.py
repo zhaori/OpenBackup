@@ -16,7 +16,7 @@ class Hash(object):
 
     def md5(self):
         md = os.popen('{} dgst -md5 {}'.format('openssl', self.data))
-        self.hash = md.read()[7 + len(self.data):]
+        self.hash = str(md.read()[7 + len(self.data):]).strip('\n')
         return self.hash
 
     def sha1(self):

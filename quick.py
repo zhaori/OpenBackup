@@ -9,7 +9,7 @@ from config.DB_Config import *
 class r_db_file(object):
 
     def __init__(self):
-        self.db = Create_db(db_table, db_mode, db_data, db_path)
+        self.db = Create_db(db_table, db_mode, db_data, path=None)
         self.db_li_path = self.db.search_sql('file_path, file_name')
 
     def get_file(self, find_str):
@@ -28,20 +28,13 @@ class r_db_file(object):
 def _control(_path, filename):
     # st_atime(访问时间), st_mtime(修改时间), st_ctime（创建时间)
     suffer = os.path.join(_path, filename)
-    c_time = os.stat(suffer).st_ctime
-    m_time = os.stat(suffer).st_mtime
-    f_hash = Hash(suffer).md5()
-    ctime = time.strftime('%Y.%m.%d.%X', time.localtime(c_time))
-    mtime = time.strftime('%Y.%m.%d.%X', time.localtime(m_time))
-    now_time = time.strftime('%Y%m%d%H%M', time.localtime(time.time()))
-    # 默认将文件大小为0的筛选出
     data_dict = {
         "file_path": _path,
         "file_name": os.path.join(_path, filename),
-        "c_time": ctime,
-        "x_time": mtime,
-        "now_time": now_time,
-        "file_hash": f_hash
+        "c_time": os.stat(suffer).st_ctime,
+        "m_time": os.stat(suffer).st_mtime,
+        "now_time": time.strftime('%Y%m%d%H%M', time.localtime(time.time())),
+        "file_hash": Hash(suffer).md5()
     }
     # 这里返回的是dict格式的数据
     return data_dict
@@ -49,7 +42,7 @@ def _control(_path, filename):
 
 class quick(object):
 
-    def __init__(self, table, mode, data, d_path=db_path):
+    def __init__(self, table, mode, data, d_path):
         self.table = table  # 表名
         self.mode = mode  # 建字段
         self.data = data  # 插入数据SQL语句
@@ -74,10 +67,9 @@ class quick(object):
         t2 = time.time()
         print(t2 - t)
 
-    def search(self):
-        # read_data = r_db_file()  # 从数据库里读取数据
-        # file_list = r_db_file().r_list()  # 返回得到到的文件列表
-        return r_db_file().r_list()
+    @staticmethod
+    def search():
+        return r_db_file().r_list()  # 返回得到到的文件列表
 
 
 if __name__ == "__main__":

@@ -1,3 +1,8 @@
+"""
+调用了Windows系统下的DOS命令
+
+"""
+
 import os
 
 
@@ -16,9 +21,14 @@ def copy_folder(old_folder, new_folder):
     os.system(r'xcopy {} {} /S /H /E /Y'.format(old_folder, new_folder))
 
 
-def del_file(folder):
+def del_file(file):
     # 删除文件
-    os.system("del {} /s /f /q".format(folder))
+    os.system("del {} /s /f /q".format(file))
+
+
+def del_folder(folder):
+    # 删除文件夹
+    os.system("rd /s/q {}".format(folder))
 
 
 def kill_pid(pid):

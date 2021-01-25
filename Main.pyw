@@ -19,7 +19,7 @@ def ping_network():
     os.system(f'ping {host}')
 
 
-class Openbackup(object):
+class OpenBackup(object):
 
     def __init__(self):
         self.root = Tk()
@@ -111,4 +111,4 @@ class Openbackup(object):
 
 
 if __name__ == '__main__':
-    Openbackup().create_win()
+    OpenBackup().create_win()
