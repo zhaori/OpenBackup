@@ -3,7 +3,7 @@ from tkinter import Tk, StringVar, Label, Button
 from tkinter.ttk import Combobox
 
 from Lib.time_json import create_json
-from config.Main_Config import logo
+from config.Main_Config import LOGO
 
 
 class drop_menu(object):
@@ -56,7 +56,7 @@ class calendar(object):
         self._height = 200
         self._win = Tk()
         self._win.title('结束时间')
-        self._win.iconbitmap(logo)
+        self._win.iconbitmap(LOGO)
 
         # 居中
         screenwidth = self._win.winfo_screenwidth()
@@ -67,11 +67,9 @@ class calendar(object):
 
     def _exit(self):
         self._win.quit()
-        exit()
 
     def _get_value(self):
         self._win.quit()
-        exit()
 
     def list_value(self):
         # 下拉框布局
@@ -81,7 +79,6 @@ class calendar(object):
         drop_menu(self._win).new(0.7, 0.1, 1, 32)  # 日
         drop_menu(self._win).new(0.1, 0.3, 1, 25)  # 时
         drop_menu(self._win).new(0.4, 0.3, 0, 60)  # 分
-        # drop_menu(self._win).new(0.7, 0.3, 1, 60)  # 秒
 
     def window(self):
         # 文字按钮布局
@@ -90,7 +87,6 @@ class calendar(object):
         Label(text='日').place(relx=0.88, rely=0.1, width=30, height=30)
         Label(text='时').place(relx=0.28, rely=0.3, width=30, height=30)
         Label(text='分').place(relx=0.58, rely=0.3, width=30, height=30)
-        # Label(text='秒').place(relx=0.88, rely=0.3, width=30, height=30)
         Button(self._win, text='确定', command=self._get_value).place(relx=0.12, rely=0.75, width=80, height=30)
         Button(self._win, text='取消', command=self._exit).place(relx=0.56, rely=0.75, width=80, height=30)
         self._win.mainloop()
@@ -100,7 +96,6 @@ def end_time():
     c = calendar()
     c.list_value()
     c.window()
-    exit()
 
 
 if __name__ == '__main__':

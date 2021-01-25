@@ -17,7 +17,7 @@ import os
 
 class archive(object):
 
-    def __init__(self, folder, source):
+    def __init__(self, folder=None, source=None):
         self.source = source  # 压缩源目录
         self.folder = folder  # 压缩文件存放目录
         self.script = '7z'

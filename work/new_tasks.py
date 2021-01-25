@@ -2,26 +2,25 @@ import json
 import os
 from tkinter.filedialog import askdirectory
 from tkinter.messagebox import showinfo
-from threading import Thread
+
 from Lib.MongoDBSever import Mongodb_server
 from Lib.time_json import file_json
 from config.MongoDB_Config import *
+from work.begin_calendar import begin_time
+from work.end_calendar import end_time
 
 
 # ---------------------创建计划任务--------------- #
 
 def new_task():
     # 防止阻塞主进程
-    def begin_time():
-        os.system('begin_calendar.exe')
+    # def begin_time():
+    #    os.system('begin_calendar.exe')
 
-    def end_time():
-        os.system('end_calendar.exe')
-
-    thread_list = [Thread(target=begin_time), Thread(target=end_time)]
-    for i in thread_list:
-        i.start()
-        i.join()
+    # def end_time():
+    #    os.system('end_calendar.exe')
+    begin_time()
+    end_time()
 
     data = {
         'begin': file_json().read_time('begin'),

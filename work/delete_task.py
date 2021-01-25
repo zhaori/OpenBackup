@@ -3,7 +3,7 @@ from tkinter.messagebox import showerror
 from tkinter.ttk import Combobox
 
 from Lib.MongoDBSever import Mongodb_server
-from config.Main_Config import logo
+from config.Main_Config import LOGO
 from config.MongoDB_Config import mongo_host, mongo_port
 
 
@@ -18,7 +18,7 @@ class delete_tasks(object):
         self.height = 200
         self.win.title('选择任务')
 
-        self.win.iconbitmap(logo)
+        self.win.iconbitmap(LOGO)
         screenwidth = self.win.winfo_screenwidth()
         screenheight = self.win.winfo_screenheight()
         aligner = '%dx%d+%d+%d' % (self.width, self.height, (screenwidth - self.width) / 2,

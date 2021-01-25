@@ -3,7 +3,7 @@ from tkinter import Tk, Button, Label
 from tkinter.filedialog import askopenfilename
 
 from Lib.safety.Hash import Hash, verify
-from config.Main_Config import logo
+from config.Main_Config import LOGO
 
 
 def tool_hash():
@@ -36,7 +36,7 @@ def tool_hash():
     width = 250
     height = 90
     win.title(_title)
-    win.iconbitmap(logo)
+    win.iconbitmap(LOGO)
 
     screenwidth = win.winfo_screenwidth()
     screenheight = win.winfo_screenheight()

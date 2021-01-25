@@ -5,7 +5,7 @@ from tkinter.messagebox import showerror
 from tkinter.ttk import Combobox
 
 from Lib.z7 import archive
-from config.Main_Config import READ_DB, logo
+from config.Main_Config import READ_DB, LOGO
 
 BACKUP_FILE: str
 
@@ -27,7 +27,7 @@ class recovery_win(object):
         self.height = 200
         self.win.title('TimeBackup')
 
-        self.win.iconbitmap(logo)
+        self.win.iconbitmap(LOGO)
         windll.shell32.SetCurrentProcessExplicitAppUserModelID('version')
         screenwidth = self.win.winfo_screenwidth()
         screenheight = self.win.winfo_screenheight()

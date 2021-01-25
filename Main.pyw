@@ -2,7 +2,7 @@ import os
 from threading import Thread
 from tkinter import Menu, Tk
 
-from config.Main_Config import about_main, read_help, tk_title, logo, ssh_options
+from config.Main_Config import about_main, read_help, tk_title, LOGO, ssh_options
 from config.Net_Config import host
 from update import update_file
 from work import *
@@ -19,6 +19,9 @@ def ping_network():
     os.system(f'ping {host}')
 
 
+def restart_db():
+    os.system(r".\Script\MongoDB_RESTART.bat")
+
 class OpenBackup(object):
 
     def __init__(self):
@@ -26,7 +29,7 @@ class OpenBackup(object):
         self.width = 550
         self.height = 400
         self.root.title(tk_title)
-        self.root.iconbitmap(logo)
+        self.root.iconbitmap(LOGO)
 
         # 居中
         screenwidth = self.root.winfo_screenwidth()
@@ -65,7 +68,7 @@ class OpenBackup(object):
 
         # --------功能--------#
         self.bf.add_command(label='完全备份', command=full_backup)
-        self.bf.add_command(label='差异备份', command=differ_backup)
+        self.bf.add_command(label='差异备份', command=differential_backup)
         self.bf.add_command(label='增量备份', command=incremental_backup)
         self.bf.add_command(label='文件快照', command=get_listen_info)
         self.gn.add_cascade(label='备份策略', menu=self.bf)
@@ -99,7 +102,8 @@ class OpenBackup(object):
         # --------帮助--------#
         self.help.add_command(label='帮助', command=read_help)
         self.help.add_command(label='更新', command=update_file)
-        self.help.add_command(label='关于本程序', command=about_main)
+        self.help.add_command(label='关于', command=about_main)
+        self.help.add_command(label='重启数据库', command=restart_db)
         self.menbar.add_cascade(label='关于', menu=self.help)
 
     def create_win(self):

@@ -9,7 +9,7 @@ from Lib.safety.AES import AES
 from Lib.safety.Hash import create_aesKey
 from Lib.safety.RSA import RSA
 from config.DB_Config import *
-from config.Main_Config import tk_title, logo
+from config.Main_Config import tk_title, LOGO
 
 
 # ------------------------------------加密--------------------------------#
@@ -73,7 +73,7 @@ def crypt_box():
     width = 280
     height = 250
     win.title(tk_title)
-    win.iconbitmap(logo)
+    win.iconbitmap(LOGO)
 
     screenwidth = win.winfo_screenwidth()
     screenheight = win.winfo_screenheight()

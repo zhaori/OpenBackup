@@ -8,8 +8,8 @@ from Lib.MongoDBSever import Mongodb_server
 from Lib.PySSH import PySFTP
 from Lib.Pydos import kill_pid
 from Lib.z7 import archive
+from config.Main_Config import LOGO
 from config.Main_Config import READ_DB
-from config.Main_Config import logo
 from config.MongoDB_Config import mongo_host, mongo_port
 from config.Net_Config import serverpath, transmit_time
 from work.gettime import now_time_s
@@ -112,7 +112,7 @@ class history_record(object):
         self.height = 200
         self.win.title('历史记录')
 
-        self.win.iconbitmap(logo)
+        self.win.iconbitmap(LOGO)
         screenwidth = self.win.winfo_screenwidth()
         screenheight = self.win.winfo_screenheight()
         aligner = '%dx%d+%d+%d' % (self.width, self.height, (screenwidth - self.width) / 2,

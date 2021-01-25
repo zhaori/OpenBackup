@@ -2,7 +2,7 @@ from tkinter import Tk, Button
 from tkinter.filedialog import askopenfilename
 
 from Lib.safety.Signature import Signature
-from config.Main_Config import logo
+from config.Main_Config import LOGO
 
 
 # --------------------------------数字验证----------------------------- #
@@ -21,7 +21,7 @@ def signature_box():
     width = 250
     height = 90
     win.title(_title)
-    win.iconbitmap(logo)
+    win.iconbitmap(LOGO)
 
     screenwidth = win.winfo_screenwidth()
     screenheight = win.winfo_screenheight()

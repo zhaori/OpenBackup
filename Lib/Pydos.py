@@ -34,3 +34,6 @@ def del_folder(folder):
 def kill_pid(pid):
     # 根据进程号杀死进程
     os.system(f"taskkill/pid {pid} -f")
+
+
+SYSTEM_TEMP = str(os.popen("echo %temp%").readline()).strip('\n')

@@ -10,7 +10,7 @@ import win32con
 import win32gui
 import win32gui_struct
 
-from config.Main_Config import tk_title, logo, windll
+from config.Main_Config import tk_title, LOGO, windll
 
 
 class SysTrayIcon(object):
@@ -246,7 +246,7 @@ class Show_Window(object):
         self.win = Tk()
         self.SysTrayIcon = None
         self.win.title(tk_title)
-        self.win.iconbitmap(logo)
+        self.win.iconbitmap(LOGO)
         windll.shell32.SetCurrentProcessExplicitAppUserModelID('version')
         screenwidth = self.win.winfo_screenwidth()
         screenheight = self.win.winfo_screenheight()
@@ -271,7 +271,7 @@ class Show_Window(object):
         print('exit...')
 
     # noinspection PyPep8Naming
-    def hidden_window(self, icon=logo):
+    def hidden_window(self, icon=LOGO):
         """
         隐藏窗口至托盘区，调用SysTrayIcon的重要函数
         """

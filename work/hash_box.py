@@ -4,7 +4,7 @@ from tkinter.filedialog import askopenfilename
 from tkinter.ttk import Combobox
 
 from Lib.safety.Hash import Hash
-from config.Main_Config import tk_title, logo
+from config.Main_Config import tk_title, LOGO
 
 
 # ----------------------生成哈希值----------------- #
@@ -33,7 +33,7 @@ def hash_box():
     width = 250
     height = 200
     win.title(tk_title)
-    win.iconbitmap(logo)
+    win.iconbitmap(LOGO)
 
     screenwidth = win.winfo_screenwidth()
     screenheight = win.winfo_screenheight()
