@@ -73,7 +73,8 @@ class OpenBackup(object):
         self.bf.add_command(label='文件快照', command=get_listen_info)
         self.gn.add_cascade(label='备份策略', menu=self.bf)
         self.huanyuan.add_command(label='完全还原', command=full_reduction)
-        self.huanyuan.add_command(label='时光回溯', command=recovery_run)
+        self.huanyuan.add_command(label='差异还原', command=recovery_run)
+        self.huanyuan.add_command(label='增量还原', command=recovery_incremental)
 
         self.gn.add_cascade(label='还原方式', menu=self.huanyuan)
         self.gn.add_cascade(label='计划任务')

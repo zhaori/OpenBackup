@@ -26,7 +26,6 @@
                               RSA.py：RSA非对称加密
                               Signature.py：数字签名
 
-                          --- Error.py：错误的提示（半弃用状态）
                           --- json_py.py：json文件的读写改
                           --- MongodbDBServer.py：Mongodb数据库的操作
                           --- Number_CN.py：数字与汉文数字的相互转换
@@ -47,8 +46,6 @@
                             -- Differential_Config.py：差异备份SQLite数据库定义
                             -- Net_Config.py：SSH、SFTP配置
                             -- Main_Config.py：整个程序的配置
-
-                    - source:编译成exe可执行程序的源码
 
                     - Temp：临时文件夹
 														
