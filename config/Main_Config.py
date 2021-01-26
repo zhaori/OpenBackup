@@ -33,7 +33,7 @@ def about_main():
                        '                        SQLite \n'
                        '                       MongoDB \n'
                        '                       Tkinter GUI  \n '
-                       '                       OpenSSL  \n '
+                       '                       OpenSSH  \n '
                        '                       Notepad2 \n'
                        ' https://github.com/zhaori/OpenBackup')
 
