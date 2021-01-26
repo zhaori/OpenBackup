@@ -22,7 +22,6 @@ class Py_install(object):
     def __init__(self):
         # 'gevent'
         self.package_list = ['rsa',
-                             'watchdog==0.10.4',
                              'pymongo==3.11.2',
                              'pywin32',
                              'paramiko',
