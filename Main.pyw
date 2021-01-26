@@ -1,18 +1,10 @@
 import os
-from threading import Thread
 from tkinter import Menu, Tk
 
 from config.Main_Config import about_main, read_help, tk_title, LOGO, ssh_options
 from config.Net_Config import host
 from update import update_file
 from work import *
-
-
-def get_listen_info():
-    def run():
-        os.popen(r'watch_listen.exe')
-
-    Thread(target=run).start()
 
 
 def ping_network():
@@ -70,7 +62,6 @@ class OpenBackup(object):
         self.bf.add_command(label='完全备份', command=full_backup)
         self.bf.add_command(label='差异备份', command=differential_backup)
         self.bf.add_command(label='增量备份', command=incremental_backup)
-        self.bf.add_command(label='文件快照', command=get_listen_info)
         self.gn.add_cascade(label='备份策略', menu=self.bf)
         self.huanyuan.add_command(label='完全还原', command=full_reduction)
         self.huanyuan.add_command(label='差异还原', command=recovery_run)

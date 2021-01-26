@@ -1,11 +1,11 @@
 {
     "Python": {
         "OpenBackup": {
-            "time": 20210120,
-            "file": "OpenBackup015.7z",
+            "time": 20210126,
+            "file": "OpenBackup10.7z",
             "url": "https://github.com/zhaori",
-            "update": "https://zhaori.github.io//upload/OpenBackup/OpenBackup015.7z",
-            "version": "0.1.5"
+            "update": "https://zhaori.github.io//upload/OpenBackup/OpenBackup10.7z",
+            "version": "1.0"
         }
     }
 }

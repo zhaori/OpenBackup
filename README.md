@@ -2,12 +2,25 @@
 
 #### 介绍
 
-一个数据备份软件，用tkinter作为GUI界面，参考了市面数据备份软件的主流测率比如增量、差异备份等
+一个数据备份软件，用tkinter作为GUI界面，参考了市面数据备份软件的主流功能比如增量、差异备份等
 
 #### 软件设计
+
 整体的软件结构参考，doc/help.txt
 
 #### 安装教程
+
+##### 如果觉得官网下载缓慢的话可以考虑用我的
+
+##### MongoDB
+
+1. 链接：https://pan.baidu.com/s/1Y3PkjqgqESFv6QH2qnXVJw
+   提取码：5he7
+
+##### Python 3.7 x64
+
+2. 链接：https://pan.baidu.com/s/1OScc-cD9mi-YgFkeMW118g
+   提取码：i4rl
 
 1. 将Script文件夹加入系统变量
 2. 运行install.py(安装第三方包)
