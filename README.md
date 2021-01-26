@@ -23,7 +23,7 @@
    提取码：i4rl
 
 1. 将Script文件夹加入系统变量
-2. 运行install.py(安装第三方包)
+2. 运行\Script\install.py(安装第三方包)
 
 #### 关于软件图标素材，来源于https://www.iconfont.cn/ 权侵删
 
