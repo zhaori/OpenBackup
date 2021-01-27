@@ -10,7 +10,6 @@ class Hash(object):
     def __init__(self, data):
         self.data = data
         folder_path, file_name = os.path.split(self.data)
-        # self.New_File_Name = os.path.splitext(file_name)[0]
         self.New_File_Name = file_name
         self.hash = None
 
@@ -31,14 +30,6 @@ class Hash(object):
     def sava_hash(self, file, suffix, path='./'):
         with open(os.path.join(path, '{}{}'.format(self.New_File_Name, suffix)), 'w') as f:
             f.write(file)
-
-
-# noinspection PyPep8Naming
-def create_aesKey(byes: int):
-    """
-    生成随机口令
-    """
-    return str(secrets.token_hex(nbytes=byes))
 
 
 def verify(old, new) -> bool:
