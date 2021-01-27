@@ -14,6 +14,7 @@ def ping_network():
 def restart_db():
     os.system(r".\Script\MongoDB_RESTART.bat")
 
+
 class OpenBackup(object):
 
     def __init__(self):

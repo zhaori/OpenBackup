@@ -1,9 +1,11 @@
-import os
 import json
-from Lib.super_json import SuperJSON
-from urllib.request import urlretrieve
-from Lib.z7 import archive
+import os
 from tkinter.messagebox import showinfo, askokcancel
+from urllib.request import urlretrieve
+
+from Lib.super_json import SuperJSON
+from Lib.z7 import archive
+
 """
 根目录下的version文件代表当前程序的版本号，update.json代表的是从远程更新下的更新配置文件，代表着最新版本号及下载链接
 """
@@ -25,8 +27,7 @@ def read_json(json_file):
 
 
 def upgrade(file):
-    z = archive(r'./', r"./")
-    z.unzip(file, r"./")
+    archive.unzip(file, r"./")
 
 
 def update_file():
