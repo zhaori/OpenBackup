@@ -4,3 +4,6 @@
 /end_calendar.exe
 /begin_calendar.exe
 /AddPATH.exe
+/backups/
+/Temp/
+/.idea/

@@ -69,7 +69,7 @@ class OpenBackup(object):
         self.huanyuan.add_command(label='增量还原', command=recovery_incremental)
 
         self.gn.add_cascade(label='还原方式', menu=self.huanyuan)
-        self.gn.add_cascade(label='计划任务')
+        # self.gn.add_cascade(label='计划任务')
         self.menbar.add_cascade(label='功能', menu=self.gn)
 
         # --------工具--------#
