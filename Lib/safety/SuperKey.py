@@ -26,6 +26,3 @@ def create_key():
     key = ''.join(all_str_list)
     random_number = base64.encodebytes(secrets.token_bytes(90)).decode()
     return key + random_number
-
-
-print(create_key())
