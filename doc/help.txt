@@ -36,16 +36,35 @@
                           --- time_json.py：将时间写入json文件，与计划任务有关
                           --- z7.py：7z的Python封装
 
-                    - logo：ico图标
 
-                    - Script：7z、OpenSSL、Mongodb服务的启动、关闭与重启、Notepad2
+                    - Script：7z、OpenSSL、Mongodb服务的启动、关闭与重启、Notepad2、install.py(第三方库安装)
 
                     - setting：配置文件夹
-                            -- DB_Config.py:SQLite数据库定义
-                            -- MongoDB_Config.py:Mongodb数据库定义
-                            -- Differential_Config.py：差异备份SQLite数据库定义
+                            -- DB_Config.py: 完全备份SQLite数据库配置
+                            -- MongoDB_Config.py: Mongodb数据库配置
+                            -- Differential_Config.py：差异备份SQLite数据库配置
                             -- Net_Config.py：SSH、SFTP配置
                             -- Main_Config.py：整个程序的配置
 
                     - Temp：临时文件夹
-														
+                    - work: 详细的功能模块
+                            -- begin_calendar.py & end_calendar.py: 任务计划中的开始日期与截止日期
+                            -- crypt_box.py:  加密&解密功能
+                            -- delete_task.py: 删除任务
+                            -- difference_backup.py: 差异备份
+                            -- difference_recovery: 差异备份还原
+                            -- gettime.py: 获取时间
+                            -- hash_box.py: 生成哈希值
+                            -- incremental_backup.py: 增量备份
+                            -- incremental_recovery.py: 增量备份还原
+                            -- new_tasks.py: 新增任务
+                            -- open_task.py: 任务选择
+                            -- signature_box.py: 数字签名
+                            -- tool_full.py: 完全备份
+                            -- tool_hash.py: 哈希值验证
+                            -- tool_reduction.py: 完全备份还原
+                            -- transmit.py: 上传文件到服务器（sftp）
+					-- compile.py: 编译成exe脚本
+					-- Main.pyw: 主程序
+					-- quick.py: 完全备份的SQLite信息生成
+					-- update.py: 更新脚本
