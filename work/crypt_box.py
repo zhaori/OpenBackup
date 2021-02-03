@@ -4,7 +4,6 @@ from tkinter import Tk, Button
 from tkinter.filedialog import askopenfilename
 from tkinter.messagebox import showerror
 
-# from Lib.Error import show_error
 from Lib.safety.AES import AES
 from Lib.safety.RSA import RSA
 from Lib.safety.SuperKey import create_key
@@ -89,5 +88,4 @@ def crypt_box():
 
 
 if __name__ == "__main__":
-    # crypt_box()
-    pass
+    crypt_box()
