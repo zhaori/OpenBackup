@@ -18,6 +18,7 @@
                                          state：状态码（暂时无用）
                  -- history 文件操作记录
                  -- log: 上传下载的记录
+
 二、程序结构
 		OpenBackup  - backups:备份文件夹
                     - Lib --- safety：安全处理库
@@ -64,6 +65,7 @@
                             -- tool_hash.py: 哈希值验证
                             -- tool_reduction.py: 完全备份还原
                             -- transmit.py: 上传文件到服务器（sftp）
+
 					-- compile.py: 编译成exe脚本
 					-- Main.pyw: 主程序
 					-- quick.py: 完全备份的SQLite信息生成
